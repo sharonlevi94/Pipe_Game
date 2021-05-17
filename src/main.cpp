@@ -2,8 +2,8 @@
 
 int main()
 {
-    auto window = sf::RenderWindow(sf::VideoMode(300, 300), "Example");
-
+    auto window = sf::RenderWindow(sf::VideoMode(900, 700), "play_pipe");
+    
     while (window.isOpen())
     {
         window.clear();
@@ -16,7 +16,10 @@ int main()
             case sf::Event::Closed:
                 window.close();
                 break;
+            case sf::Event::MouseButtonPressed:
+                break;
             }
+           
         }
     }
 }

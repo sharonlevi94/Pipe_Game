@@ -15,6 +15,8 @@ add_subdirectory (include)
 add_subdirectory (src)
 add_subdirectory (resources)
 
+configure_file (C:/SFML/SFML-2.5.1/bin/openal32.dll ${CMAKE_BINARY_DIR} COPYONLY)
+
 set (SFML_STATIC_LIBRARIES TRUE)
 set (SFML_DIR "C:/SFML/SFML-2.5.1/lib/cmake/SFML")
 
