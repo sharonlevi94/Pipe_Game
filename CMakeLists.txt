@@ -9,7 +9,7 @@ if (MSVC)
     add_compile_options (/W4 /permissive- /Zc:externConstexpr /Zc:inline)
 endif ()
 
-add_executable (oop2_ex04 WIN32 "" include/Directions.h include/Board.h src/Board.cpp src/DataReader.cpp include/DataReader.h)
+add_executable (oop2_ex04 WIN32 "" include/Directions.h include/Board.h src/Board.cpp src/DataReader.cpp include/DataReader.h "src/Rotatable.cpp")
 
 add_subdirectory (include)
 add_subdirectory (src)

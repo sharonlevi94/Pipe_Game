@@ -39,7 +39,10 @@ vector<vector<char>> DataReader::readNextLevel(){
     //2. check first if there is more level in the file
     if (this->isThereNextLevel()) {
         char input;
-        //4. read the level itself from the file
+    //3. receive level size
+        m_boardReader >> m_levelSize.x >> m_levelSize.y;
+        m_boardReader.get();
+    //4. read the level itself from the file
         for (int i = 0; i < m_levelSize.x; i++) {
             std::vector<char> row = {};
             for (int j = 0; j < m_levelSize.y; j++) {

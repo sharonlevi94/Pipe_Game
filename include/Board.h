@@ -6,10 +6,10 @@
 #include "Macros.h"
 #include "Resources.h"
 #include <vector>
+#include "Rotatable.h"
+
 //========================== forward declarations ============================
 class Square;
-class GameObject;
-class Sink;
 //============================== using section ===============================
 using std::vector;
 /*============================================================================
@@ -34,17 +34,18 @@ public:
 
     //=========================== method section =============================
     void draw(sf::RenderWindow& window);
-    vector<Sink*>loadNewLevel();
+    vector<Rotatable*>loadNewLevel();
     bool is_next_lvl_exist()const;
-    void loadLevelEffects(int);
+    void loadLevelEffects();
 
 private:
     //========================= members section ==============================
     vector<vector<std::unique_ptr<Square>>> m_map;
     sf::Vector2f m_location;
+    sf::Vector2f m_size;
     DataReader m_levelReader;
 
     //====================== privete methods section =========================
     void releaseMap();
-    void clearParameters();
+
 };

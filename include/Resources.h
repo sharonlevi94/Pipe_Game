@@ -16,7 +16,7 @@ public:
 	const sf::Texture& getTexture(int)const;
 	//=========================== method section ==============================
 	void playSound(int key);
-	void playMusic(int);
+	void playMusic();
 	void pauseMusic();
 	//========================= private section ===============================
 private:

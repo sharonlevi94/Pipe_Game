@@ -3,7 +3,7 @@
 #include "Directions.h"
 class Rotatable : public Square {
 public:
-	using Square::Square;
+	Rotatable(const sf::Vector2f&, const sf::Vector2f&, char);
 	void rotate();
 private:
 	struct Directions m_Directions;

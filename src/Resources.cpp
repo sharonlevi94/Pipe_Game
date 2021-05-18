@@ -35,8 +35,8 @@ const sf::SoundBuffer& Resources::getSound(int soundKey) const {
 	return(*this->m_soundBuffers.find(soundKey)->second);
 }
 //============================ methods section ===============================
-void Resources::playMusic(int levelNumber) {
-	//this->m_music.openFromFile(MUSIC_PATH);
+void Resources::playMusic() {
+	this->m_music.openFromFile(MUSIC_PATH);
 	this->m_music.play();
 	this->m_music.setLoop(true);
 }

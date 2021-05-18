@@ -33,3 +33,12 @@
 14	1832	643056231	CMakeFiles/oop2_ex04.dir/src/Controller.cpp.obj	766b511749128557
 4	1888	643056231	CMakeFiles/oop2_ex04.dir/src/DataReader.cpp.obj	d36b03fe5ad9e817
 11	1913	643056231	CMakeFiles/oop2_ex04.dir/src/Resources.cpp.obj	b954a7ecc0c29dca
+2	362	643073016	build.ninja	1942cd081a23564b
+3	2320	643073018	CMakeFiles/oop2_ex04.dir/src/DataReader.cpp.obj	d36b03fe5ad9e817
+17	2331	643073018	CMakeFiles/oop2_ex04.dir/src/Sink.cpp.obj	5506d65dd00eca00
+13	2418	643073018	CMakeFiles/oop2_ex04.dir/src/Rotatable.cpp.obj	bcc2f04bb6f01a3d
+21	2421	643073018	CMakeFiles/oop2_ex04.dir/src/main.cpp.obj	508520912d3b2267
+24	2427	643073018	CMakeFiles/oop2_ex04.dir/src/Controller.cpp.obj	766b511749128557
+30	2696	643073019	CMakeFiles/oop2_ex04.dir/src/Resources.cpp.obj	b954a7ecc0c29dca
+1	876	643073074	CMakeFiles/oop2_ex04.dir/src/Board.cpp.obj	bf5741ca170089c2
+1	1033	643073133	CMakeFiles/oop2_ex04.dir/src/Board.cpp.obj	bf5741ca170089c2

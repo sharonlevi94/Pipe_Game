@@ -1,15 +1,18 @@
 //============================= include section ==========================
 #include "Board.h"
+#include "Sink.h"
 using std::vector;
 //====================== Constructors & distructors section ==================
 Board::Board(const sf::Vector2f& location,
              const sf::Vector2f& size)
         : m_levelReader(DataReader()),
-          m_location(location){}
+          m_location(location),
+           m_size(size){}
 //================================ gets section ==============================
 //============================================================================
 const sf::Vector2f& Board::getlevelSize()const {
 //    return this->m_background.getSize();
+    return this->m_size;
 }
 //============================================================================
 const sf::Vector2f& Board::getLocation() const {
@@ -45,15 +48,14 @@ void Board::draw(sf::RenderWindow& window){
  * This function update the objects of the game to the current level game.
  * the function build a vector of moving objects ptrs & return it.
  */
-vector<Sink*> Board::loadNewLevel() {
+vector<Rotatable*> Board::loadNewLevel() {
     vector<vector<char>> map = m_levelReader.readNextLevel();
-    vector<Sink*> sinkVec = {};
+    vector<Rotatable*> faucetVec = {};
     sf::Vector2f boxSize(this->getlevelSize().x / map[0].size(),
                          this->getlevelSize().y / map.size());
 
     //reset last load parameters:
     this->releaseMap();
-    this->clearParameters();
     this->m_map.resize(map.size());
 
     //allocating level's objects:
@@ -61,14 +63,38 @@ vector<Sink*> Board::loadNewLevel() {
         for (int x = 0; x < map[y].size(); x++) {
             switch (map[y][x])
             {
-
-                default:
-                    this->m_map[y].push_back(nullptr); // inputed ' '
-                    break;
+            case STRAIGHT_PIPE:
+                this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
+                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, STRAIGHT_PIPE));
+                break;
+            case T_PIPE:
+                this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
+                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, T_PIPE));
+                break;
+            case PLUS_PIPE:
+                this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
+                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, PLUS_PIPE));
+                break;
+            case CORNER_PIPE:
+                this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
+                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, CORNER_PIPE));
+                break;
+            case SINK:
+                this->m_map[y].push_back(std::make_unique <Square>(sf::Vector2f
+                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, SINK));
+                break;
+            case FAUCET:
+                this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
+                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, FAUCET));
+                faucetVec.push_back((Rotatable*)this->m_map[y][x].get());
+                break;
+            default:
+                this->m_map[y].push_back(nullptr); // inputed ' '
+                break;
             }
         }
     }
-    return sinkVec;
+    return faucetVec;
 }
 //============================================================================
 //the method isn't const because fstream's peek method isn't const
@@ -79,18 +105,10 @@ bool Board::is_next_lvl_exist() const{
 /*
 * This function load the background and the music of the current level.
 */
-void Board::loadLevelEffects(int level) {
-   // this->m_background.setTexture(&Resources::instance()
-   //         .getBackground(level));
-    Resources::instance().playMusic(level);
+void Board::loadLevelEffects() {
+    Resources::instance().playMusic();
 }
 //============================== private section =============================
 void Board::releaseMap() {
     this->m_map.clear();
-}
-//============================================================================
-/*this function all the details of the current level, release ptrs and 
-unique ptrs.*/
-void Board::clearParameters() {
-    this->releaseMap();
 }
