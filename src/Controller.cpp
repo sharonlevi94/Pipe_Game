@@ -1,8 +1,13 @@
 #include "Controller.h"
+#include "Resources.h"
 
 Controller::Controller():
 	m_window(sf::RenderWindow(sf::VideoMode(1200, 900), "play_pipe")), m_level(1),
-	m_matrixSize(START_SIZE){
+	m_matrixSize(START_SIZE),
+    m_background(sf::RectangleShape()){
+    this->m_background.setSize(sf::Vector2f(m_window.getSize()));
+    this->m_background.setPosition(sf::Vector2f(0, 0));
+    this->m_background.setTexture(&Resources::instance().getBackground());
 }
 
 void Controller::run(){

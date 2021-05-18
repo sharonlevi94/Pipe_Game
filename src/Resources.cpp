@@ -69,11 +69,6 @@ void Resources::setBackgrounds() {
 	this->m_texture.insert(std::pair<int, std::unique_ptr <sf::Texture>>
 		(BACKGROUND, std::move(texturesCreator)));
 	this->m_texture[BACKGROUND]->loadFromFile(BACKGROUND_PATH);
-	//------------------------------------------------------------------------
-	texturesCreator = std::make_unique<sf::Texture>();
-	this->m_texture.insert(std::pair<int, std::unique_ptr <sf::Texture>>
-		(LEVEL_BACKGROUND, std::move(texturesCreator)));
-	//adding levels background path
 }
 //============================================================================
 void Resources::setLogos() {

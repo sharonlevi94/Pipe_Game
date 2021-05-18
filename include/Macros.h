@@ -20,3 +20,11 @@ constexpr auto BACKGROUND = 1;
 constexpr auto LEVEL_BACKGROUND = 2;
 constexpr auto GAME_LOGO = 3;
 constexpr auto SQUARE = 4;
+
+//objects:
+constexpr auto STRAIGHT_PIPE = "-";
+constexpr auto CORNER_PIPE = "L";
+constexpr auto PLUS_PIPE = "+";
+constexpr auto T_PIPE = "T";
+constexpr auto SINK = "S";
+constexpr auto FAUCET = "F";

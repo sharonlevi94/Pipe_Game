@@ -7,12 +7,9 @@
 #include "Resources.h"
 #include <vector>
 //========================== forward declarations ============================
-class MovingObject;
+class Square;
 class GameObject;
-class StaticObject;
-class Enemy;
-class Gift;
-class Player;
+class Sink;
 //============================== using section ===============================
 using std::vector;
 /*============================================================================
@@ -30,30 +27,23 @@ public:
           const sf::Vector2f& size = sf::Vector2f(0,0));
     ~Board() = default;
     //============================ gets section ==============================
-    int getLevelTime()const;
     const sf::Vector2f& getlevelSize()const;
     const sf::Vector2f& getLocation() const;
     sf::Vector2f getObjectSize()const;
-    StaticObject* getContent(const sf::Vector2f& location);
-    const StaticObject* getContent(const sf::Vector2f&) const;
-    const sf::Vector2f& getPlayerLoc()const;
-    const sf::Vector2f& getDoorLocation()const;
+    const Square* getContent(const sf::Vector2f&) const;
 
     //=========================== method section =============================
-    void draw(sf::RenderWindow& window, const sf::Time&);
-    vector<MovingObject*>loadNewLevel();
+    void draw(sf::RenderWindow& window);
+    vector<Sink*>loadNewLevel();
     bool is_next_lvl_exist()const;
-    void resetLvl();
-    void gameOver();
-    bool isMovePossible(const sf::Vector2f&)const;
     void loadLevelEffects(int);
 
 private:
     //========================= members section ==============================
-    vector<vector<std::unique_ptr<GameObject>>> m_map;
+    vector<vector<std::unique_ptr<Square>>> m_map;
     sf::Vector2f m_location;
     DataReader m_levelReader;
-    sf::RectangleShape m_background;
+
     //====================== privete methods section =========================
     void releaseMap();
     void clearParameters();
