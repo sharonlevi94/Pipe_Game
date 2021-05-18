@@ -1,7 +1,8 @@
 #include "Controller.h"
 
 Controller::Controller():
-	m_window(sf::RenderWindow(sf::VideoMode(1200, 900), "play_pipe")){
+	m_window(sf::RenderWindow(sf::VideoMode(1200, 900), "play_pipe")), m_level(1),
+	m_matrixSize(START_SIZE){
 }
 
 void Controller::run(){
@@ -22,5 +23,11 @@ void Controller::run(){
             }
 
         }
+    }
+}
+
+void Controller::levelUp() {
+    if (m_level >= 8){
+        if (m_level % 2 == 0)   m_matrixSize++;
     }
 }
