@@ -10,3 +10,13 @@
 2	2789	642972715	CMakeFiles/oop2_ex04.dir/src/Square.cpp.obj	8363a516f853950
 13	2793	642972715	CMakeFiles/oop2_ex04.dir/src/main.cpp.obj	508520912d3b2267
 2794	3883	642972716	oop2_ex04.exe	4a575a60b6c5f9a5
+4	1409	643017631	CMakeFiles/oop2_ex04.dir/src/main.cpp.obj	508520912d3b2267
+12	1410	643017631	CMakeFiles/oop2_ex04.dir/src/Sink.cpp.obj	5506d65dd00eca00
+1	1411	643017631	CMakeFiles/oop2_ex04.dir/src/Square.cpp.obj	8363a516f853950
+9	1412	643017631	CMakeFiles/oop2_ex04.dir/src/Controller.cpp.obj	766b511749128557
+1412	1862	643017631	oop2_ex04.exe	4e14e8a160ab6780
+1	1524	643023385	CMakeFiles/oop2_ex04.dir/src/Controller.cpp.obj	766b511749128557
+5	1734	643023385	CMakeFiles/oop2_ex04.dir/src/Resources.cpp.obj	b954a7ecc0c29dca
+1	487	643023493	oop2_ex04.exe	4e14e8a160ab6780
+2	1213	643023550	CMakeFiles/oop2_ex04.dir/src/Controller.cpp.obj	766b511749128557
+1213	1497	643023550	oop2_ex04.exe	4e14e8a160ab6780

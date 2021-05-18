@@ -1,7 +1,8 @@
 #include "Controller.h"
 
 Controller::Controller():
-	m_window(sf::RenderWindow(sf::VideoMode(900, 700), "play_pipe")){}
+	m_window(sf::RenderWindow(sf::VideoMode(1200, 900), "play_pipe")){
+}
 
 void Controller::run(){
     while (m_window.isOpen())
