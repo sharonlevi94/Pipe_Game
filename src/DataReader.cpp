@@ -11,8 +11,8 @@ DataReader::DataReader()
         : m_levelSize({}){
     this->m_boardReader.open(BOARD_PATH);
     if(!this->m_boardReader.is_open())
-        std::cout <<
-                ("Cannot open the levels file, pls make sure the file is exist");
+        throw std::ifstream::failure
+        ("Cannot open the levels file, pls make sure the file is exist");
 
 }
 //========================================================================
@@ -20,13 +20,6 @@ DataReader::~DataReader() {
     this->m_boardReader.close();
 }
 /*============================ methods section ===============================
-* this function read the size of the level and the time if exist.
-*/
-void DataReader::receiveLevelParameters(){
-    m_boardReader >> m_levelSize.x >> m_levelSize.y;
-    //eat white space
-    m_boardReader.get();
-}
 //========================================================================
 /*
   This function return true if a new level is exist in the inputed file
@@ -46,8 +39,6 @@ vector<vector<char>> DataReader::readNextLevel(){
     //2. check first if there is more level in the file
     if (this->isThereNextLevel()) {
         char input;
-        //3. receive size & time of the level
-        this->receiveLevelParameters();
         //4. read the level itself from the file
         for (int i = 0; i < m_levelSize.x; i++) {
             std::vector<char> row = {};
@@ -55,11 +46,34 @@ vector<vector<char>> DataReader::readNextLevel(){
                 m_boardReader.get(input);
                 switch (input)
                 {
-
-                    default: {
-                        row.push_back('\0'); // inputed ' '
-                        break;
-                    }
+                case STRAIGHT_PIPE: {
+                    row.push_back(STRAIGHT_PIPE);
+                    break;
+                }
+                case CORNER_PIPE: {
+                    row.push_back(CORNER_PIPE);
+                    break;
+                }
+                case PLUS_PIPE: {
+                    row.push_back(PLUS_PIPE);
+                    break;
+                }
+                case T_PIPE: {
+                    row.push_back(T_PIPE);
+                    break;
+                }
+                case SINK: {
+                    row.push_back(SINK);
+                    break;
+                }
+                case FAUCET: {
+                    row.push_back(FAUCET);
+                    break;
+                }
+                default: {
+                    row.push_back('\0'); // inputed ' '
+                    break;
+                }
                 }
             }
             if (m_boardReader.peek() != '\0')

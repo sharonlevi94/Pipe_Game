@@ -12,7 +12,7 @@ public:
 	static Resources& instance();
 	//============================ gets section ===============================
 	const sf::SoundBuffer& getSound(int) const;
-	const sf::Texture& getBackground(int);
+	const sf::Texture& getBackground();
 	const sf::Texture& getTexture(int)const;
 	//=========================== method section ==============================
 	void playSound(int key);

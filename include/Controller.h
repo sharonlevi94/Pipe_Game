@@ -6,7 +6,7 @@ class Controller {
 public:
 	Controller();
 	void run();
-
+	void draw();
 private:
 	sf::RenderWindow m_window;
 	sf::RectangleShape m_background;

@@ -23,25 +23,8 @@ Resources& Resources::instance() {
 }
 //============================== gets section ================================
 //============================================================================
-const sf::Texture& Resources::getBackground(int textureKey) {
-	if (textureKey != this->m_backgroundLevelState) {
-		switch (textureKey) {
-		case 1:
-			this->m_texture[LEVEL_BACKGROUND]->
-				loadFromFile(LEVEL1_BACKGROUND_PATH);
-			break;
-		case 2:
-			this->m_texture[LEVEL_BACKGROUND]->
-				loadFromFile(LEVEL2_BACKGROUND_PATH);
-			break;
-		case 3:
-			this->m_texture[LEVEL_BACKGROUND]->
-				loadFromFile(LEVEL3_BACKGROUND_PATH);
-			break;
-		}
-		this->m_backgroundLevelState = textureKey;
-	}
-	return (*this->m_texture.find(LEVEL_BACKGROUND)->second);
+const sf::Texture& Resources::getBackground() {	
+	return (*this->m_texture.find(BACKGROUND)->second);
 }
 //============================================================================
 const sf::Texture& Resources::getTexture(int textureKey)const {
@@ -64,10 +47,13 @@ void Resources::pauseMusic() { this->m_music.pause(); }
 //============================== sets section ================================
 void Resources::setBackgrounds() {
 	std::unique_ptr<sf::Texture> texturesCreator;
+
 	//adding game's backgrounds path
 	texturesCreator = std::make_unique<sf::Texture>();
+
 	this->m_texture.insert(std::pair<int, std::unique_ptr <sf::Texture>>
 		(BACKGROUND, std::move(texturesCreator)));
+
 	this->m_texture[BACKGROUND]->loadFromFile(BACKGROUND_PATH);
 }
 //============================================================================

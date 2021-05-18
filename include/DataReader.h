@@ -12,7 +12,7 @@ public:
     //============================= gets section =============================
 
     sf::Vector2f getLevelSize()const;
-    int getLevelTime()const;
+
     //========================== method section ==============================
 
     bool isThereNextLevel()const;
@@ -20,8 +20,6 @@ public:
     void resetRead();
 private:
     //====================== privete methods section =========================
-
-    void receiveLevelParameters();
     //======================== members section ===============================
 
     std::ifstream m_boardReader;
