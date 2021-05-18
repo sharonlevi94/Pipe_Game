@@ -11,5 +11,5 @@ private:
 	sf::Vector2f m_location;
 	sf::Texture m_texture;
 	bool m_inSolution = false;
-	std::vector<Square*> m_neighbours;
+	std::vector<std::unique_ptr<Square>> m_neighbours;
 };
