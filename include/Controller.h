@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Board.h"
 
 class Controller {
 public:
@@ -15,6 +16,7 @@ private:
 	//State m_gameState;
 	//sf::Clock m_gameClock;
 	void levelUp();
+	Board m_board;
 	
 };
 

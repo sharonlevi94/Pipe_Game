@@ -10,6 +10,7 @@ Controller::Controller():
     this->m_background.setSize(sf::Vector2f(m_window.getSize()));
     this->m_background.setPosition(sf::Vector2f(0, 0));
     this->m_background.setTexture(&Resources::instance().getBackground());
+    this->m_board = Board()
 }
 //============================================================================
 void Controller::run(){
