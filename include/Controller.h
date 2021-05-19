@@ -1,6 +1,5 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "Macros.h"
 
 class Controller {
 public:

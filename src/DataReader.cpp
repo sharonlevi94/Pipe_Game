@@ -1,8 +1,8 @@
 //============================= include section ==============================
 #include "DataReader.h"
 #include "Macros.h"
-#include <vector>
 #include <iostream>
+
 using std::endl;
 using std::vector;
 //============================= public section ===============================
@@ -21,7 +21,6 @@ DataReader::~DataReader() {
 }
 /*============================ methods section ===============================
 //========================================================================
-/*
   This function return true if a new level is exist in the inputed file
   or false if all the levels is over.
 */

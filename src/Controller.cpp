@@ -1,5 +1,7 @@
 #include "Controller.h"
 #include "Resources.h"
+#include "Macros.h"
+
 //============================================================================
 Controller::Controller():
 	m_window(sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "play_pipe")), m_level(1),

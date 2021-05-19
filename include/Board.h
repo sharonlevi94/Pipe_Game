@@ -1,15 +1,11 @@
 #pragma once
 //============================ include section ===============================
 #include <vector>
-#include "DataReader.h"
-#include <SFML/Graphics.hpp>
-#include "Macros.h"
-#include "Resources.h"
-#include <vector>
-#include "Rotatable.h"
+#include <DataReader.h>
 
 //========================== forward declarations ============================
 class Square;
+class Rotatable;
 //============================== using section ===============================
 using std::vector;
 /*============================================================================

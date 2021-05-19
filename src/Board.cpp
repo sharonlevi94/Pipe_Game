@@ -1,6 +1,11 @@
 //============================= include section ==========================
 #include "Board.h"
 #include "Sink.h"
+#include "Macros.h"
+#include "Resources.h"
+#include <vector>
+#include "Rotatable.h"
+
 using std::vector;
 //====================== Constructors & distructors section ==================
 Board::Board(const sf::Vector2f& location,

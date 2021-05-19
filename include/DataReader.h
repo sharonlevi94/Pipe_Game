@@ -1,7 +1,6 @@
 #pragma once
 //============================= include section ==============================
 #include <fstream>
-#include <vector>
 #include <SFML/Graphics.hpp>
 
 class DataReader{
