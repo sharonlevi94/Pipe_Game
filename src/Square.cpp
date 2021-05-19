@@ -4,7 +4,7 @@
 Square::Square(const sf::Vector2f& location,
 	const sf::Vector2f& size, char type)
 	: m_location(location),m_size(size) {
-	m_neighbours = {};
+	//m_neighbours = {};
 	m_shape.setTexture(&Resources::instance()
 		.getTexture(type));
 }

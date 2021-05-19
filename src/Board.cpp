@@ -22,12 +22,10 @@ const sf::Vector2f& Board::getLocation() const {
 const Square* Board::getContent(const sf::Vector2f& location) const {
 //    if (!this->m_background.getGlobalBounds().contains(location))
 //        return nullptr;
-    int x = (int)((location.x - this->m_location.x) /
-                  (this->getlevelSize().x / this->m_map[0].size())),
-            y = (int)((location.y - this->m_location.y) /
-                      (this->getlevelSize().y / this->m_map.size()));
-//    if (dynamic_cast <StaticObject*> (this->m_map[y][x].get()))
-//        return ((StaticObject*)this->m_map[y][x].get());
+    int x = (int)((location.x - this->m_location.x) / (this->getlevelSize().x / this->m_map[0].size()));
+    int y = (int)((location.y - this->m_location.y) / (this->getlevelSize().y / this->m_map.size()));
+    if ((Rotatable*)(this->m_map[y][x].get()))
+        return ((Rotatable*)this->m_map[y][x].get());
     return nullptr;
 }
 //============================================================================
@@ -49,8 +47,10 @@ void Board::draw(sf::RenderWindow& window){
  * the function build a vector of moving objects ptrs & return it.
  */
 vector<Rotatable*> Board::loadNewLevel() {
+    
     vector<vector<char>> map = m_levelReader.readNextLevel();
     vector<Rotatable*> faucetVec = {};
+    
     sf::Vector2f boxSize(this->getlevelSize().x / map[0].size(),
                          this->getlevelSize().y / map.size());
 
@@ -94,6 +94,7 @@ vector<Rotatable*> Board::loadNewLevel() {
             }
         }
     }
+    
     return faucetVec;
 }
 //============================================================================
@@ -106,7 +107,7 @@ bool Board::is_next_lvl_exist() const{
 * This function load the background and the music of the current level.
 */
 void Board::loadLevelEffects() {
-    Resources::instance().playMusic();
+    //Resources::instance().playMusic();
 }
 //============================== private section =============================
 void Board::releaseMap() {

@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <vector>
 
 class Square {
 public:
@@ -12,5 +13,5 @@ private:
 	sf::Vector2f m_size;
 	sf::Vector2f m_location;
 	bool m_inSolution = false;
-	std::vector<std::unique_ptr<Square>> m_neighbours;
+	//std::vector<std::unique_ptr<Square>> m_neighbours;
 };

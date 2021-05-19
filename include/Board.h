@@ -33,7 +33,7 @@ public:
     const Square* getContent(const sf::Vector2f&) const;
 
     //=========================== method section =============================
-    void draw(sf::RenderWindow& window);
+    void draw(sf::RenderWindow& );
     vector<Rotatable*>loadNewLevel();
     bool is_next_lvl_exist()const;
     void loadLevelEffects();

@@ -6,15 +6,16 @@
 #include "Macros.h"
 //============================= public section ===============================
 //==================== Constructors & distructors section ====================
-Resources::Resources() :
-	m_music() {
+Resources::Resources() 
+	//m_music()
+{
 	this->m_texture.clear();
-	this->m_soundBuffers.clear();
-	this->m_music.setVolume(MUSIC_VOLUME);
+	//this->m_soundBuffers.clear();
+	//this->m_music.setVolume(MUSIC_VOLUME);
 	this->setBackgrounds();
 	this->setLogos();
 	this->setObjects();
-	this->setSounds();
+	//this->setSounds();
 }
 //============================================================================
 Resources& Resources::instance() {
@@ -31,17 +32,17 @@ const sf::Texture& Resources::getTexture(int textureKey)const {
 	return (*this->m_texture.find(textureKey)->second);
 }
 //============================================================================
-const sf::SoundBuffer& Resources::getSound(int soundKey) const {
+/*const sf::SoundBuffer& Resources::getSound(int soundKey) const {
 	return(*this->m_soundBuffers.find(soundKey)->second);
-}
+}*/
 //============================ methods section ===============================
-void Resources::playMusic() {
+/*void Resources::playMusic() {
 	this->m_music.openFromFile(MUSIC_PATH);
 	this->m_music.play();
 	this->m_music.setLoop(true);
-}
+}*/
 //============================================================================
-void Resources::pauseMusic() { this->m_music.pause(); }
+//void Resources::pauseMusic() { this->m_music.pause(); }
 
 //============================ private section ===============================
 //============================== sets section ================================
@@ -66,8 +67,9 @@ void Resources::setLogos() {
 }
 //============================================================================
 void Resources::setObjects() {
-	std::unique_ptr<sf::Texture> texturesCreator;
 	/*
+	std::unique_ptr<sf::Texture> texturesCreator;
+	
 	texturesCreator = std::make_unique<sf::Texture>();
 	this->m_texture.insert(std::pair<int, std::unique_ptr <sf::Texture>>
 		(SQUARE, std::move(texturesCreator)));
@@ -75,18 +77,17 @@ void Resources::setObjects() {
 	*/
 }
 //============================================================================
-void Resources::setSounds() {
-	std::unique_ptr<sf::SoundBuffer> soundsCreator;
-	/*
+/*void Resources::setSounds() {
+	//std::unique_ptr<sf::SoundBuffer> soundsCreator;
+
 	soundsCreator = std::make_unique<sf::SoundBuffer>();
 	this->m_soundBuffers.insert(std::pair<int, std::unique_ptr <sf::SoundBuffer>>
 		(CLICK_SOUND, std::move(soundsCreator)));
 	this->m_soundBuffers[CLICK_SOUND]->loadFromFile(CLICK_SOUND_PATH);
-	*/
-}
+}*/
 //============================ methods section ===============================
-void Resources::playSound(int key) {
+/*void Resources::playSound(int key) {
 	m_sound.setBuffer(this->getSound(key));
 	m_sound.play();
-}
+}*/
 //============================================================================
