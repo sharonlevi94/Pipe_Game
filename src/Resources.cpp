@@ -1,6 +1,6 @@
 //============================= include section ==============================
 #include "Resources.h"
-//#include <map>
+#include <map>
 #include "Macros.h"
 
 //============================= public section ===============================

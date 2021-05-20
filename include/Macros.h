@@ -13,7 +13,7 @@ constexpr auto MUSIC_PATH = "Music.ogg";
 constexpr auto BOARD_PATH = "Board.txt";
 constexpr auto BACKGROUND_PATH = "Background.png";
 constexpr auto GAME_LOGO_PATH = "Logo.png";
-constexpr auto STRAIGHT_PIPE_PATH = "straight_pipe";
+constexpr auto STRAIGHT_PIPE_PATH = "straight_pipe.png";
 constexpr auto T_PIPE_PATH = "t_pipe.png";
 constexpr auto CORNER_PIPE_PATH = "corner_pipe.png";
 constexpr auto PLUS_PIPE_PATH = "plus_pipe.png";
@@ -25,6 +25,7 @@ constexpr auto FAUCET_PIPE_PATH = "";
 constexpr auto BACKGROUND = 1;
 constexpr auto LEVEL_BACKGROUND = 2;
 constexpr auto GAME_LOGO = 3;
+
 constexpr auto STRAIGHT_PIPE_E = 10;
 constexpr auto STRAIGHT_PIPE_F = 11;
 constexpr auto CORNER_PIPE_E = 12;

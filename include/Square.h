@@ -5,10 +5,11 @@ class Square {
 public:
 	Square(const sf::Vector2f& , const sf::Vector2f&, int);
 	void draw(sf::RenderWindow&);
-	sf::RectangleShape getShape()const;
-	void setShape(sf::RectangleShape&);
+	sf::Sprite &getShape();
+//	const setShape(sf::Sprite&);
+
 private:
-	sf::RectangleShape m_shape;
+	sf::Sprite m_shape;
 	sf::Vector2f m_size;
 	sf::Vector2f m_location;
 	bool m_inSolution = false;
