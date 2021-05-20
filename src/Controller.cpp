@@ -6,19 +6,10 @@
 Controller::Controller():
 	m_window(sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "play_pipe")), m_level(1),
 	m_matrixSize(START_SIZE),
-    m_background(sf::RectangleShape()),
-    m_board(sf::Vector2f(0,0), sf::Vector2f(WIDTH, HEIGHT)){
+    m_background(sf::RectangleShape()){
     this->m_background.setSize(sf::Vector2f(m_window.getSize()));
     this->m_background.setPosition(sf::Vector2f(0, 0));
-
-    sf::Texture* texture = new sf::Texture;		//texture for the background
-
-    texture->loadFromFile("Background.png");
-    m_background = sf::RectangleShape(sf::Vector2f(m_window.getSize().x, m_window.getSize().y));
-    m_background.setTexture(texture);
-
-    //this->m_background.setTexture(&Resources::instance().getBackground());
-    //this->m_board = Board();
+    this->m_background.setTexture(&Resources::instance().getBackground());
 }
 //============================================================================
 void Controller::run(){
@@ -38,7 +29,10 @@ void Controller::run(){
                 break;
             case sf::Event::MouseButtonPressed:
                 break;
+            default:
+                    ; // to avoid 22 enums warning in switch
             }
+
 
         }
     }

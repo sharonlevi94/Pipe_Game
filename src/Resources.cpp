@@ -1,10 +1,14 @@
 //============================= include section ==============================
 #include "Resources.h"
+<<<<<<< HEAD
 //#include <map>
+=======
+#include <map>
+>>>>>>> e1b45695c719306c6489dfae788055327781d9d8
 #include "Macros.h"
 
 //============================= public section ===============================
-//==================== Constructors & distructors section ====================
+//==================== Constructors & destructors section ====================
 Resources::Resources() 
 	//m_music()
 {
@@ -66,14 +70,44 @@ void Resources::setLogos() {
 }
 //============================================================================
 void Resources::setObjects() {
-	/*
+
 	std::unique_ptr<sf::Texture> texturesCreator;
-	
+
+    texturesCreator = std::make_unique<sf::Texture>();
+    this->m_texture.insert(std::pair<int, std::unique_ptr <sf::Texture>>
+                                   (STRAIGHT_PIPE_E, std::move(texturesCreator)));
+    this->m_texture[STRAIGHT_PIPE_E]->loadFromFile(STRAIGHT_PIPE_PATH);
+
 	texturesCreator = std::make_unique<sf::Texture>();
 	this->m_texture.insert(std::pair<int, std::unique_ptr <sf::Texture>>
-		(SQUARE, std::move(texturesCreator)));
-	this->m_texture[SQUARE]->loadFromFile(SQUARE_PATH);
-	*/
+		(CORNER_PIPE_E, std::move(texturesCreator)));
+	this->m_texture[CORNER_PIPE_E]->loadFromFile(CORNER_PIPE_PATH);
+
+    texturesCreator = std::make_unique<sf::Texture>();
+    this->m_texture.insert(std::pair<int, std::unique_ptr <sf::Texture>>
+                                   (T_PIPE_E, std::move(texturesCreator)));
+    this->m_texture[T_PIPE_E]->loadFromFile(T_PIPE_PATH);
+
+    texturesCreator = std::make_unique<sf::Texture>();
+    this->m_texture.insert(std::pair<int, std::unique_ptr <sf::Texture>>
+                                   (PLUS_PIPE_E, std::move(texturesCreator)));
+    this->m_texture[PLUS_PIPE_E]->loadFromFile(PLUS_PIPE_PATH);
+
+//    texturesCreator = std::make_unique<sf::Texture>();
+//    this->m_texture.insert(std::pair<int, std::unique_ptr <sf::Texture>>
+//                                   (SQUARE, std::move(texturesCreator)));
+//    this->m_texture[SQUARE]->loadFromFile(SQUARE_PATH);
+//
+//    texturesCreator = std::make_unique<sf::Texture>();
+//    this->m_texture.insert(std::pair<int, std::unique_ptr <sf::Texture>>
+//                                   (SQUARE, std::move(texturesCreator)));
+//    this->m_texture[SQUARE]->loadFromFile(SQUARE_PATH);
+//
+//    texturesCreator = std::make_unique<sf::Texture>();
+//    this->m_texture.insert(std::pair<int, std::unique_ptr <sf::Texture>>
+//                                   (SQUARE, std::move(texturesCreator)));
+//    this->m_texture[SQUARE]->loadFromFile(SQUARE_PATH);
+
 }
 //============================================================================
 /*void Resources::setSounds() {

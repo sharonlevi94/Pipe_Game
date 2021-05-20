@@ -12,9 +12,9 @@ private:
 	sf::RectangleShape m_background;
 	int m_level;
 	int m_matrixSize;
-	//Board m_gameBoard;
-	//State m_gameState;
-	//sf::Clock m_gameClock;
+	Board m_board;
+//	State m_gameState;
+	sf::Clock m_gameClock;
 	void levelUp();
 	Board m_board;
 	

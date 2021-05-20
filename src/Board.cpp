@@ -15,7 +15,7 @@ Board::Board(const sf::Vector2f& location,
            m_size(size){}
 //================================ gets section ==============================
 //============================================================================
-const sf::Vector2f& Board::getlevelSize()const {
+const sf::Vector2f& Board::getLevelSize()const {
 //    return this->m_background.getSize();
     return this->m_size;
 }
@@ -27,16 +27,16 @@ const sf::Vector2f& Board::getLocation() const {
 const Square* Board::getContent(const sf::Vector2f& location) const {
 //    if (!this->m_background.getGlobalBounds().contains(location))
 //        return nullptr;
-    int x = (int)((location.x - this->m_location.x) / (this->getlevelSize().x / this->m_map[0].size()));
-    int y = (int)((location.y - this->m_location.y) / (this->getlevelSize().y / this->m_map.size()));
+    int x = (int)((location.x - this->m_location.x) / (this->getLevelSize().x / this->m_map[0].size()));
+    int y = (int)((location.y - this->m_location.y) / (this->getLevelSize().y / this->m_map.size()));
     if ((Rotatable*)(this->m_map[y][x].get()))
         return ((Rotatable*)this->m_map[y][x].get());
     return nullptr;
 }
 //============================================================================
 sf::Vector2f Board::getObjectSize()const{
-    return sf::Vector2f{ this->getlevelSize().x / this->m_map[0].size(),
-                         this->getlevelSize().y / this->m_map.size() };
+    return sf::Vector2f{this->getLevelSize().x / this->m_map[0].size(),
+                         this->getLevelSize().y / this->m_map.size() };
 }
 //============================ methods section ===============================
 void Board::draw(sf::RenderWindow& window){
@@ -56,8 +56,8 @@ vector<Rotatable*> Board::loadNewLevel() {
     vector<vector<char>> map = m_levelReader.readNextLevel();
     vector<Rotatable*> faucetVec = {};
     
-    sf::Vector2f boxSize(this->getlevelSize().x / map[0].size(),
-                         this->getlevelSize().y / map.size());
+    sf::Vector2f boxSize(this->getLevelSize().x / map[0].size(),
+                         this->getLevelSize().y / map.size());
 
     //reset last load parameters:
     this->releaseMap();
@@ -70,23 +70,23 @@ vector<Rotatable*> Board::loadNewLevel() {
             {
             case STRAIGHT_PIPE:
                 this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
-                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, STRAIGHT_PIPE));
+                (boxSize.x * x + 32, boxSize.y * y - 16) + this->m_location, boxSize, STRAIGHT_PIPE_E));
                 break;
             case T_PIPE:
                 this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
-                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, T_PIPE));
+                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, T_PIPE_E));
                 break;
             case PLUS_PIPE:
                 this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
-                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, PLUS_PIPE));
+                (boxSize.x * x, boxSize.y * y - 32) + this->m_location, boxSize, PLUS_PIPE_E));
                 break;
             case CORNER_PIPE:
                 this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
-                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, CORNER_PIPE));
+                (boxSize.x * x + 32, boxSize.y * y) + this->m_location, boxSize, CORNER_PIPE_E));
                 break;
             case SINK:
                 this->m_map[y].push_back(std::make_unique <Square>(sf::Vector2f
-                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, SINK));
+                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, SINK_E));
                 break;
             case FAUCET:
                 this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
@@ -94,7 +94,7 @@ vector<Rotatable*> Board::loadNewLevel() {
                 faucetVec.push_back((Rotatable*)this->m_map[y][x].get());
                 break;
             default:
-                this->m_map[y].push_back(nullptr); // inputed ' '
+                this->m_map[y].push_back(nullptr); // ' ' inserted
                 break;
             }
         }
