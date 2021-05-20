@@ -2,9 +2,10 @@
 //============================ include section ===============================
 #include <vector>
 #include <DataReader.h>
+#include "Square.h"
 
 //========================== forward declarations ============================
-class Square;
+//class Square;
 class Rotatable;
 //============================== using section ===============================
 using std::vector;
