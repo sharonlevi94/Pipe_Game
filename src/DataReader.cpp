@@ -9,7 +9,7 @@ using std::vector;
 //==================== Constructors & distructors section ====================
 DataReader::DataReader()
         : m_levelSize({}){
-    this->m_boardReader.open(BOARD_PATH);
+    m_boardReader.open("Board.txt");
     if(!this->m_boardReader.is_open())
         throw std::ifstream::failure
         ("Cannot open the levels file, pls make sure the file is exist");
