@@ -6,7 +6,7 @@ Square::Square(const sf::Vector2f& location,
 	: m_location(location),m_size(size) {
 	//m_neighbours = {};
 	m_shape.setTexture(Resources::instance().getTexture(type));
-	m_shape.setOrigin(64, 64);
+	m_shape.setOrigin(size.x / 2, size.y / 2);
 	m_shape.setPosition(location);
 
 }

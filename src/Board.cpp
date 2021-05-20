@@ -70,7 +70,7 @@ vector<Rotatable*> Board::loadNewLevel() {
             {
             case STRAIGHT_PIPE:
                 this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
-                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, STRAIGHT_PIPE_E));
+                (boxSize.x * x + 32, boxSize.y * y - 16) + this->m_location, boxSize, STRAIGHT_PIPE_E));
                 break;
             case T_PIPE:
                 this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
@@ -78,11 +78,11 @@ vector<Rotatable*> Board::loadNewLevel() {
                 break;
             case PLUS_PIPE:
                 this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
-                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, PLUS_PIPE_E));
+                (boxSize.x * x, boxSize.y * y - 32) + this->m_location, boxSize, PLUS_PIPE_E));
                 break;
             case CORNER_PIPE:
                 this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
-                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, CORNER_PIPE_E));
+                (boxSize.x * x + 32, boxSize.y * y) + this->m_location, boxSize, CORNER_PIPE_E));
                 break;
             case SINK:
                 this->m_map[y].push_back(std::make_unique <Square>(sf::Vector2f

@@ -6,7 +6,7 @@
 Controller::Controller():
 	m_window(sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "play_pipe")), m_level(1),
 	m_matrixSize(START_SIZE),
-    m_board(sf::Vector2f(460,80), sf::Vector2f(1000, 1000)){
+    m_board(sf::Vector2f(640,160), sf::Vector2f(800, 800)){
 //    this->m_background.setSize(sf::Vector2f(m_window.getSize()));
     this->m_background.setPosition(sf::Vector2f(0, 0));
 //    this->m_background.setTexture(&Resources::instance().getBackground());
