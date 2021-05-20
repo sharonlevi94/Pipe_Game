@@ -14,6 +14,7 @@ Controller::Controller():
     texture->loadFromFile("Background.png");
     m_background = sf::RectangleShape(sf::Vector2f(m_window.getSize().x, m_window.getSize().y));
     m_background.setTexture(texture);
+    m_board.loadNewLevel();
 
 }
 //============================================================================
@@ -33,7 +34,10 @@ void Controller::run(){
                 break;
             case sf::Event::MouseButtonPressed:
                 break;
+            default:
+                    ; // to avoid 22 enums warning in switch
             }
+
 
         }
     }

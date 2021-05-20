@@ -42,9 +42,9 @@ sf::Vector2f Board::getObjectSize()const{
 void Board::draw(sf::RenderWindow& window){
     for (int i = 0; i < this->m_map.size(); i++)
         for (int j = 0; j < this->m_map[i].size(); j++)
-            if (m_map[i][j].get() != nullptr) {
+            //if (m_map[i][j].get() != nullptr) {
                 m_map[i][j]->draw(window);
-            }
+            //}
 }
 //============================================================================
 /* 
@@ -70,23 +70,23 @@ vector<Rotatable*> Board::loadNewLevel() {
             {
             case STRAIGHT_PIPE:
                 this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
-                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, STRAIGHT_PIPE));
+                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, STRAIGHT_PIPE_E));
                 break;
             case T_PIPE:
                 this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
-                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, T_PIPE));
+                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, T_PIPE_E));
                 break;
             case PLUS_PIPE:
                 this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
-                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, PLUS_PIPE));
+                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, PLUS_PIPE_E));
                 break;
             case CORNER_PIPE:
                 this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
-                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, CORNER_PIPE));
+                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, CORNER_PIPE_E));
                 break;
             case SINK:
                 this->m_map[y].push_back(std::make_unique <Square>(sf::Vector2f
-                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, SINK));
+                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, SINK_E));
                 break;
             case FAUCET:
                 this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
