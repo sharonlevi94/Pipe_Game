@@ -1,4 +1,3 @@
-#include <SFML/Graphics.hpp>
 #include "Controller.h"
 #include <iostream>
 

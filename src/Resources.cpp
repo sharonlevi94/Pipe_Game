@@ -1,9 +1,8 @@
 //============================= include section ==============================
 #include "Resources.h"
-#include <map>
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
+//#include <map>
 #include "Macros.h"
+
 //============================= public section ===============================
 //==================== Constructors & distructors section ====================
 Resources::Resources() 

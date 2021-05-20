@@ -1,9 +1,8 @@
 #pragma once
 //============================ include section ===============================
 #pragma once
-#include <map>
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
+//#include <SFML/Audio.hpp>
 /*============================================================================*/
 class Resources
 {
@@ -25,7 +24,7 @@ private:
 	//std::map<int, std::unique_ptr<sf::SoundBuffer>> m_soundBuffers;
 	//sf::Music m_music;
 	//sf::Sound m_sound;
-	int m_backgroundLevelState;
+	int m_backgroundLevelState = 1;
 	//================= constractors and destractors section =================
 	Resources();
 	//============================ sets section ===============================
