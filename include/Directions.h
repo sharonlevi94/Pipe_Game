@@ -1,6 +1,6 @@
 struct Directions{
-    int up = 1;
-    int down = 0;
-    int left = 0;
-    int right = 0;
+    bool up = false;
+    bool down = false;
+    bool left = false;
+    bool right = false;
 };
