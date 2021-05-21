@@ -20,17 +20,17 @@ const sf::Vector2f& Board::getLevelSize()const { return this->m_size; }
 const sf::Vector2f& Board::getLocation() const { return this->m_location; }
 //============================================================================
 const Square* Board::getContent(const sf::Vector2f& location) const {
-//    if (!this->m_background.getGlobalBounds().contains(location))
-//        return nullptr;
-    if(location.x>=m_location.x && location.x<= m_location.x+m_size.x)
-        if (location.y >= m_location.y && location.y <= m_location.y + m_size.y) {
-            int x = (int)((location.x - this->m_location.x) / (this->getLevelSize().x / this->m_map[0].size()));
-            int y = (int)((location.y - this->m_location.y) / (this->getLevelSize().y / this->m_map.size()));
+if (location.x >= m_location.x && location.x <= m_location.x + m_size.x)
+if (location.y >= m_location.y && location.y <= m_location.y + m_size.y) {
+    int x = (int)((location.x - this->m_location.x) /
+        (this->getLevelSize().x / this->m_map[0].size())),
+        y = (int)((location.y - this->m_location.y) /
+            (this->getLevelSize().y / this->m_map.size()));
 
-            if ((Rotatable*)(this->m_map[y][x].get()))
-                return ((Rotatable*)this->m_map[y][x].get());
-        }
-    return nullptr;
+    if ((Rotatable*)(this->m_map[y][x].get()))
+        return ((Rotatable*)this->m_map[y][x].get());
+}
+return nullptr;
 }
 //============================================================================
 Square* Board::getContent(const sf::Vector2f& location) {
@@ -70,10 +70,10 @@ vector<Rotatable*> Board::loadNewLevel() {
     vector<vector<char>> map = m_levelReader.readNextLevel();
     vector<Rotatable*> faucetVec = {};
     
-   // sf::Vector2f boxSize(this->getLevelSize().x / map[0].size(),
-   //                      this->getLevelSize().y / map.size());
+    sf::Vector2f boxSize(this->getLevelSize().x / map[0].size(),
+                         this->getLevelSize().y / map.size());
 
-    sf::Vector2f boxSize(128,128);
+    //sf::Vector2f boxSize(128,128);
 
     //reset last load parameters:
     this->releaseMap();

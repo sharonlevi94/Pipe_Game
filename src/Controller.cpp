@@ -30,9 +30,9 @@ void Controller::run(){
                 m_window.close();
                 break;
             case sf::Event::MouseButtonPressed:
-                if(this->m_board.getContent(sf::Vector2f((float)event.mouseButton.x,(float)event.mouseButton.y)) != nullptr)
-                    if ((Rotatable*)(this->m_board.getContent(sf::Vector2f((float)event.mouseButton.x,(float)event.mouseButton.y ))))
-                         this->m_board.getContent(sf::Vector2f((float)event.mouseButton.x,(float)event.mouseButton.y))->rotate();
+                if(this->m_board.getContent(sf::Vector2f((float)event.mouseButton.x+60,(float)event.mouseButton.y+60)) != nullptr)
+                    if ((Rotatable*)(this->m_board.getContent(sf::Vector2f((float)event.mouseButton.x + 60,(float)event.mouseButton.y + 60))))
+                         this->m_board.getContent(sf::Vector2f((float)event.mouseButton.x + 60,(float)event.mouseButton.y + 60))->rotate();
                 break;
             default:
                     ; // to avoid 22 enums warning in switch
