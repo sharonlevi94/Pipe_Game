@@ -49,14 +49,3 @@ constexpr auto SINK_E = 18;
 constexpr auto SINK_F = 19;
 constexpr auto FAUCET_F = 20;
 
-//objects:
-constexpr auto STRAIGHT_PIPE = '-';
-constexpr auto CORNER_PIPE = 'L';
-constexpr auto PLUS_PIPE = '+';
-constexpr auto T_PIPE = 'T';
-constexpr auto FAUCET = 'F';
-
-constexpr auto SINK_DOWN = 'S';
-constexpr auto SINK_UP = 'W';
-constexpr auto SINK_RIGHT = 'D';
-constexpr auto SINK_LEFT = 'A';

@@ -16,7 +16,7 @@ private:
 	sf::Vector2f m_size;
 	sf::Vector2f m_location;
 	bool m_inSolution = false;
-	struct Directions m_directions;
+	Directions m_directions;
 	//need to create data structure to hold 2 FULL/EMPTY sprites
 	std::vector<Square*> m_neighbours;
 };

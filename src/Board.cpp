@@ -73,7 +73,7 @@ vector<Rotatable*> Board::loadNewLevel() {
                     break;
                 case SINK_E:
                     this->m_map[y].push_back(std::make_unique <Sink>(sf::Vector2f
-                    (boxSize.x * x + 64, boxSize.y * y + 64) + this->m_location, boxSize, SINK_E, SINK_UP));
+                    (boxSize.x * x + 64, boxSize.y * y + 64) + this->m_location, boxSize, SINK_E, SINK_E));
                     break;
                 case FAUCET_F:
                     this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
@@ -98,7 +98,10 @@ void Board::loadLevelEffects() {
 }
 //============================================================================
 void Board::calcNeighbours() {
-
+    for (int row = 0; row < m_size.y; row++)
+        for (int col = 0; col < m_size.x; col++) {
+            
+        }
 }
 //============================== private section =============================
 void Board::releaseMap() {
