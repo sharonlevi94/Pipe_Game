@@ -15,32 +15,35 @@ Board::Board(const sf::Vector2f& location,
            m_size(size){}
 //================================ gets section ==============================
 //============================================================================
-const sf::Vector2f& Board::getLevelSize()const {
-//    return this->m_background.getSize();
-    return this->m_size;
-}
+const sf::Vector2f& Board::getLevelSize()const { return this->m_size; }
 //============================================================================
-const sf::Vector2f& Board::getLocation() const {
-    return this->m_location;
-}
+const sf::Vector2f& Board::getLocation() const { return this->m_location; }
 //============================================================================
 const Square* Board::getContent(const sf::Vector2f& location) const {
 //    if (!this->m_background.getGlobalBounds().contains(location))
 //        return nullptr;
-    int x = (int)((location.x - this->m_location.x) / (this->getLevelSize().x / this->m_map[0].size()));
-    int y = (int)((location.y - this->m_location.y) / (this->getLevelSize().y / this->m_map.size()));
-    if ((Rotatable*)(this->m_map[y][x].get()))
-        return ((Rotatable*)this->m_map[y][x].get());
+    if(location.x>=m_location.x && location.x<= m_location.x+m_size.x)
+        if (location.y >= m_location.y && location.y <= m_location.y + m_size.y) {
+            int x = (int)((location.x - this->m_location.x) / (this->getLevelSize().x / this->m_map[0].size()));
+            int y = (int)((location.y - this->m_location.y) / (this->getLevelSize().y / this->m_map.size()));
+
+            if ((Rotatable*)(this->m_map[y][x].get()))
+                return ((Rotatable*)this->m_map[y][x].get());
+        }
     return nullptr;
 }
 //============================================================================
 Square* Board::getContent(const sf::Vector2f& location) {
-    //    if (!this->m_background.getGlobalBounds().contains(location))
-    //        return nullptr;
-    int x = (int)((location.x - this->m_location.x) / (this->getLevelSize().x / this->m_map[0].size()));
-    int y = (int)((location.y - this->m_location.y) / (this->getLevelSize().y / this->m_map.size()));
-    if ((Rotatable*)(this->m_map[y][x].get()))
-        return ((Rotatable*)this->m_map[y][x].get());
+    if (location.x >= m_location.x && location.x <= m_location.x + m_size.x)
+        if (location.y >= m_location.y && location.y <= m_location.y + m_size.y) {
+            int x = (int)((location.x - this->m_location.x) /
+                (this->getLevelSize().x / this->m_map[0].size())),
+                y = (int)((location.y - this->m_location.y) /
+                    (this->getLevelSize().y / this->m_map.size()));
+
+            if ((Rotatable*)(this->m_map[y][x].get()))
+                return ((Rotatable*)this->m_map[y][x].get());
+        }
     return nullptr;
 }
 //============================================================================
@@ -88,7 +91,7 @@ vector<Rotatable*> Board::loadNewLevel() {
                 (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, T_PIPE_E));
                 break;
             case PLUS_PIPE:
-                this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
+                this->m_map[y].push_back(std::make_unique <Square>(sf::Vector2f
                 (boxSize.x * x, boxSize.y * y - 32) + this->m_location, boxSize, PLUS_PIPE_E));
                 break;
             case CORNER_PIPE:

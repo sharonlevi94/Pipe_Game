@@ -6,9 +6,8 @@ Square::Square(const sf::Vector2f& location,
 	: m_location(location),m_size(size) {
 	//m_neighbours = {};
 	m_shape.setTexture(Resources::instance().getTexture(type));
-	m_shape.setOrigin(size.x / 2, size.y / 2);
+	m_shape.setOrigin(m_shape.getGlobalBounds().width / 2, m_shape.getGlobalBounds().height / 2);
 	m_shape.setPosition(location);
-
 }
 
 void Square::draw(sf::RenderWindow& window) {
@@ -24,8 +23,5 @@ sf::Sprite &Square:: getShape() {
 //}
 
 void Square::rotate() {
-	getShape().rotate(90.f);
-	//	sf::Sprite newShape = this->getShape();
-	//	newShape.rotate(90.f);
-	//	this->setShape(newShape);
+	m_shape.rotate(90.f);
 }
