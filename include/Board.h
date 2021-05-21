@@ -31,7 +31,7 @@ public:
     //=========================== method section =============================
     void draw(sf::RenderWindow& );
     vector<Rotatable*>loadNewLevel();
-    bool is_next_lvl_exist()const;
+    void calcNeighbours();
     void loadLevelEffects();
 
 private:
@@ -39,7 +39,7 @@ private:
     vector<vector<std::unique_ptr<Square>>> m_map;
     sf::Vector2f m_location;
     sf::Vector2f m_size;
-    //DataReader m_levelReader;
+    vector<Rotatable*> m_faucets;
 
     //====================== privete methods section =========================
     void releaseMap();

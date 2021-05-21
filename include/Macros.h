@@ -5,6 +5,8 @@ constexpr auto LEVEL_SIZE = 6;
 constexpr auto HEIGHT = 1080;
 constexpr auto WIDTH = 1920;
 constexpr auto BOARD_SIZE = LEVEL_SIZE * SQUARE_LEN;
+constexpr auto BOX_WIDTH = 128;
+constexpr auto BOX_HEIGHT = 128;
 
 //music:
 constexpr auto MUSIC_VOLUME = 50;

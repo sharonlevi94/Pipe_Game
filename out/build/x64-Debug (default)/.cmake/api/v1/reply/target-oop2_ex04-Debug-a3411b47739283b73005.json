@@ -126,8 +126,7 @@
 				3,
 				4,
 				5,
-				6,
-				7
+				6
 			]
 		}
 	],
@@ -238,8 +237,7 @@
 				3,
 				4,
 				5,
-				6,
-				7
+				6
 			]
 		}
 	],
@@ -279,12 +277,6 @@
 			"backtrace" : 7,
 			"compileGroupIndex" : 0,
 			"path" : "src/Board.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 7,
-			"compileGroupIndex" : 0,
-			"path" : "src/DataReader.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
