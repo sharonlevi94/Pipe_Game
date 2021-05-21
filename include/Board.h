@@ -1,7 +1,7 @@
 #pragma once
 //============================ include section ===============================
 #include <vector>
-#include <DataReader.h>
+//#include <DataReader.h>
 #include "Square.h"
 //========================== forward declarations ============================
 //class Square;
@@ -23,10 +23,10 @@ public:
           const sf::Vector2f& size = sf::Vector2f(0,0));
     ~Board() = default;
     //============================ gets section ==============================
-    const sf::Vector2f& getLevelSize()const;
-    const sf::Vector2f& getLocation() const;
-    sf::Vector2f getObjectSize()const;
-    const Square* getContent(const sf::Vector2f&) const;
+//    const sf::Vector2f& getLevelSize()const;
+//    const sf::Vector2f& getLocation() const;
+//    sf::Vector2f getObjectSize()const;
+//    const Square* getContent(const sf::Vector2f&) const;
     Square* getContent(const sf::Vector2f&);
     //=========================== method section =============================
     void draw(sf::RenderWindow& );
@@ -39,7 +39,7 @@ private:
     vector<vector<std::unique_ptr<Square>>> m_map;
     sf::Vector2f m_location;
     sf::Vector2f m_size;
-    DataReader m_levelReader;
+    //DataReader m_levelReader;
 
     //====================== privete methods section =========================
     void releaseMap();

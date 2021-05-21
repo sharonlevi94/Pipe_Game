@@ -1,9 +1,10 @@
 #pragma once
 //general:
 constexpr auto SQUARE_LEN = 128;
-constexpr auto START_SIZE = 5;
+constexpr auto LEVEL_SIZE = 6;
 constexpr auto HEIGHT = 1080;
 constexpr auto WIDTH = 1920;
+constexpr auto BOARD_SIZE = LEVEL_SIZE * SQUARE_LEN;
 
 //music:
 constexpr auto MUSIC_VOLUME = 50;

@@ -5,12 +5,13 @@
 //============================================================================
 Controller::Controller():
 	m_window(sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "play_pipe")), m_level(1),
-	m_matrixSize(START_SIZE),
+	m_matrixSize(LEVEL_SIZE),
     m_background(sf::RectangleShape()),
-    m_board(Board(sf::Vector2f(WIDTH/3, HEIGHT/10), sf::Vector2f(1200, 800))){
+    m_board(Board(sf::Vector2f(576, 156), sf::Vector2f(BOARD_SIZE, BOARD_SIZE))){
     this->m_background.setSize(sf::Vector2f(m_window.getSize()));
     this->m_background.setPosition(sf::Vector2f(0, 0));
     this->m_background.setTexture(&Resources::instance().getBackground());
+
 }
 //============================================================================
 void Controller::run(){
