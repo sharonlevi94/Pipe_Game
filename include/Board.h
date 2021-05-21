@@ -23,10 +23,6 @@ public:
           const sf::Vector2f& size = sf::Vector2f(0,0));
     ~Board() = default;
     //============================ gets section ==============================
-//    const sf::Vector2f& getLevelSize()const;
-//    const sf::Vector2f& getLocation() const;
-//    sf::Vector2f getObjectSize()const;
-//    const Square* getContent(const sf::Vector2f&) const;
     Square* getContent(const sf::Vector2f&);
     //=========================== method section =============================
     void draw(sf::RenderWindow& );
@@ -43,5 +39,7 @@ private:
 
     //====================== privete methods section =========================
     void releaseMap();
-
+    void calcInernalNeighbours();
+    void calcFirstColNeighbours();
+    void calcLastColNeighbours();
 };

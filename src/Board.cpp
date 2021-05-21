@@ -98,12 +98,88 @@ void Board::loadLevelEffects() {
 }
 //============================================================================
 void Board::calcNeighbours() {
-    for (int row = 0; row < m_size.y; row++)
-        for (int col = 0; col < m_size.x; col++) {
-            
-        }
+    this->calcInernalNeighbours();
+    //run on the external cols of the DB:
+    this->calcFirstColNeighbours();
+    this->calcLastColNeighbours();
 }
 //============================== private section =============================
 void Board::releaseMap() {
     this->m_map.clear();
+}
+//============================================================================
+void Board::calcInernalNeighbours() {
+    //run on the internal DB
+    for (int row = 0; row < m_size.y; row++) {
+    std:vector<Square*> neighbours = {};
+        for (int col = 1; col < m_size.x - 1; col++) {
+            if (row > 0)
+                neighbours.push_back(m_map[row - 1][col].get()); //up
+            else
+                neighbours.push_back(nullptr);
+            if (row < m_size.y - 1)
+                neighbours.push_back(m_map[row + 1][col].get()); //down
+            else
+                neighbours.push_back(nullptr);
+            neighbours.push_back(m_map[row][col - 1].get()); //left
+            neighbours.push_back(m_map[row][col + 1].get()); //right
+            m_map[row][col]->setNeighbours(neighbours);
+        }
+    }
+}
+//============================================================================
+void Board::calcFirstColNeighbours() {
+    //first col
+    for (int row = 0; row < m_size.x; row++) {
+    std:vector<Square*> neighbours = {};
+        if (row == 0) { //top left
+            neighbours.push_back(nullptr);
+            neighbours.push_back(m_map[row + 1][0].get());
+            neighbours.push_back(nullptr);
+            neighbours.push_back(m_map[row][1].get());
+            m_map[row][0]->setNeighbours(neighbours);
+        }
+        if (row == m_size.x - 1) { //bottom left
+            neighbours.push_back(m_map[row - 1][0].get());
+            neighbours.push_back(nullptr);
+            neighbours.push_back(nullptr);
+            neighbours.push_back(m_map[row][1].get());
+            m_map[row][0]->setNeighbours(neighbours);
+        }
+        else {
+            neighbours.push_back(m_map[row - 1][0].get());
+            neighbours.push_back(m_map[row + 1][0].get());
+            neighbours.push_back(nullptr);
+            neighbours.push_back(m_map[row][1].get());
+            m_map[row][0]->setNeighbours(neighbours);
+        }
+    }
+}
+//============================================================================
+void Board::calcLastColNeighbours() {
+    //last col
+    for (int row = 0; row < m_size.x; row++) {
+    std:vector<Square*> neighbours = {};
+        if (row == 0) { //top right
+            neighbours.push_back(nullptr);
+            neighbours.push_back(m_map[row + 1][m_size.x].get());
+            neighbours.push_back(m_map[row][m_size.x - 2].get());
+            neighbours.push_back(nullptr);
+            m_map[row][0]->setNeighbours(neighbours);
+        }
+        if (row == m_size.x - 1) { //bottom right
+            neighbours.push_back(m_map[row - 1][m_size.x].get());
+            neighbours.push_back(nullptr);
+            neighbours.push_back(m_map[row][m_size.x - 2].get());
+            neighbours.push_back(nullptr);
+            m_map[row][0]->setNeighbours(neighbours);
+        }
+        else {
+            neighbours.push_back(m_map[row - 1][m_size.x].get());
+            neighbours.push_back(m_map[row + 1][m_size.x].get());
+            neighbours.push_back(m_map[row][m_size.x - 2].get());
+            neighbours.push_back(nullptr);
+            m_map[row][0]->setNeighbours(neighbours);
+        }
+    }
 }

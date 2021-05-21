@@ -10,7 +10,7 @@ public:
 	//	const setShape(sf::Sprite&);
 	void rotate();
 	virtual ~Square() = default;
-
+	void setNeighbours(std::vector<Square*>);
 private:
 	sf::Sprite m_shape;
 	sf::Vector2f m_size;

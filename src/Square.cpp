@@ -49,3 +49,8 @@ sf::Sprite& Square::getShape() {
 void Square::rotate() {
 	m_shape.rotate(90.f);
 }
+
+void Square::setNeighbours(std::vector<Square*> neighbours) {
+	for (auto& neighbour : neighbours) 
+		this->m_neighbours.push_back(neighbour);
+}
