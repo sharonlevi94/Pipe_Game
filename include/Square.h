@@ -14,7 +14,7 @@ private:
 	sf::Sprite m_shape;
 	sf::Vector2f m_size;
 	sf::Vector2f m_location;
-	bool m_inSolution = false;
+	//bool m_inSolution = false;
 	//need to create data structure to hold 2 FULL/EMPTY sprites
-	//std::vector<std::unique_ptr<Square>> m_neighbours;
+	std::vector<Square*> m_neighbours;
 };
