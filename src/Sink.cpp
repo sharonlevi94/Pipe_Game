@@ -9,20 +9,4 @@ Sink::Sink(const sf::Vector2f& location,
 	this->getShape().setOrigin(this->getShape().getGlobalBounds().width / 2,
 		this->getShape().getGlobalBounds().height / 2);
 	this->getShape().setPosition(location);
-	switch (direction) {
-	case SINK_RIGHT:
-		this->rotate();
-		break;
-	case SINK_DOWN:
-		this->rotate();
-		this->rotate();
-		break;
-	case SINK_LEFT:
-		this->rotate();
-		this->rotate();
-		this->rotate();
-		break;
-	default:
-		break;
-	}
 }

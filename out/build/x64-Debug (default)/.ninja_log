@@ -85,3 +85,14 @@
 2540	4123	643319953	oop2_ex04.exe	4a17e138cc901062
 29	2909	643320569	CMakeFiles/oop2_ex04.dir/src/Sink.cpp.obj	5506d65dd00eca00
 2	3028	643320569	CMakeFiles/oop2_ex04.dir/src/main.cpp.obj	508520912d3b2267
+5	2510	643328230	CMakeFiles/oop2_ex04.dir/src/Square.cpp.obj	8363a516f853950
+2	2555	643328231	CMakeFiles/oop2_ex04.dir/src/main.cpp.obj	508520912d3b2267
+24	2637	643328231	CMakeFiles/oop2_ex04.dir/src/Resources.cpp.obj	b954a7ecc0c29dca
+1	2057	643328280	CMakeFiles/oop2_ex04.dir/src/Sink.cpp.obj	5506d65dd00eca00
+21	3187	643328321	CMakeFiles/oop2_ex04.dir/src/main.cpp.obj	508520912d3b2267
+50	3190	643328321	CMakeFiles/oop2_ex04.dir/src/Rotatable.cpp.obj	bcc2f04bb6f01a3d
+3	3194	643328321	CMakeFiles/oop2_ex04.dir/src/Square.cpp.obj	8363a516f853950
+44	3228	643328321	CMakeFiles/oop2_ex04.dir/src/Controller.cpp.obj	766b511749128557
+36	3281	643328321	CMakeFiles/oop2_ex04.dir/src/Sink.cpp.obj	5506d65dd00eca00
+29	3404	643328321	CMakeFiles/oop2_ex04.dir/src/Board.cpp.obj	bf5741ca170089c2
+3405	4840	643328322	oop2_ex04.exe	4a17e138cc901062
