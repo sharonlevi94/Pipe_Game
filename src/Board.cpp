@@ -86,23 +86,23 @@ vector<Rotatable*> Board::loadNewLevel() {
             {
             case STRAIGHT_PIPE_E:
                 this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
-                (boxSize.x * x , boxSize.y * y ) + this->m_location, boxSize, STRAIGHT_PIPE_E));
+                (boxSize.x * x + 64, boxSize.y * y + 64 ) + this->m_location, boxSize, STRAIGHT_PIPE_E));
                 break;
             case T_PIPE_E:
                 this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
-                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, T_PIPE_E));
+                (boxSize.x * x + 64, boxSize.y * y + 64) + this->m_location, boxSize, T_PIPE_E));
                 break;
             case PLUS_PIPE_E:
                 this->m_map[y].push_back(std::make_unique <Square>(sf::Vector2f
-                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, PLUS_PIPE_E));
+                (boxSize.x * x + 64, boxSize.y * y + 64) + this->m_location, boxSize, PLUS_PIPE_E));
                 break;
             case CORNER_PIPE_E:
                 this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
-                (boxSize.x * x , boxSize.y * y) + this->m_location, boxSize, CORNER_PIPE_E));
+                (boxSize.x * x + 64, boxSize.y * y + 64) + this->m_location, boxSize, CORNER_PIPE_E));
                 break;
             case SINK_E:
                 this->m_map[y].push_back(std::make_unique <Sink>(sf::Vector2f
-                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, SINK_E, SINK_UP));
+                (boxSize.x * x + 64, boxSize.y * y + 64) + this->m_location, boxSize, SINK_E, SINK_UP));
                 break;
 //            case SINK_DOWN:
 //                this->m_map[y].push_back(std::make_unique <Sink>(sf::Vector2f
@@ -118,7 +118,7 @@ vector<Rotatable*> Board::loadNewLevel() {
                 break;
             case FAUCET_F:
                 this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
-                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, FAUCET_F));
+                (boxSize.x * x + 64, boxSize.y * y + 64) + this->m_location, boxSize, FAUCET_F));
                 faucetVec.push_back((Rotatable*)this->m_map[y][x].get());
                 break;
             default:
