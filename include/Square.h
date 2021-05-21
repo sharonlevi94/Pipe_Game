@@ -8,6 +8,7 @@ public:
 	sf::Sprite &getShape();
 //	const setShape(sf::Sprite&);
 	void rotate();
+	virtual ~Square() = default;
 
 private:
 	sf::Sprite m_shape;

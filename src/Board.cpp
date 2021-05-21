@@ -5,6 +5,7 @@
 #include "Resources.h"
 #include <vector>
 #include "Rotatable.h"
+#include <ctime>
 
 using std::vector;
 //====================== Constructors & distructors section ==================
@@ -77,48 +78,38 @@ vector<Rotatable*> Board::loadNewLevel() {
     //reset last load parameters:
     this->releaseMap();
     this->m_map.resize(LEVEL_SIZE);
+    std::srand(time(0));
     int randVal = (std::rand()% (20 - 10 + 1) / 2) * 2 + 10;
     //allocating level's objects:
     for (int y = 0; y < LEVEL_SIZE; ++y) {
         for (int x = 0; x < LEVEL_SIZE; x++) {
-            randVal = (std::rand()% (20 - 10 + 1) / 2) * 2 + 10;
+            randVal = (rand() % (20 - 10 + 1) / 2) * 2 + 10;
+
             switch (randVal)
             {
             case STRAIGHT_PIPE_E:
                 this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
-                (boxSize.x * x , boxSize.y * y ) + this->m_location, boxSize, STRAIGHT_PIPE_E));
+                (boxSize.x * x + 64, boxSize.y * y + 64 ) + this->m_location, boxSize, STRAIGHT_PIPE_E));
                 break;
             case T_PIPE_E:
                 this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
-                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, T_PIPE_E));
+                (boxSize.x * x + 64, boxSize.y * y + 64) + this->m_location, boxSize, T_PIPE_E));
                 break;
             case PLUS_PIPE_E:
-                this->m_map[y].push_back(std::make_unique <Square>(sf::Vector2f
-                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, PLUS_PIPE_E));
+                this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
+                (boxSize.x * x + 64, boxSize.y * y + 64) + this->m_location, boxSize, PLUS_PIPE_E));
                 break;
             case CORNER_PIPE_E:
                 this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
-                (boxSize.x * x , boxSize.y * y) + this->m_location, boxSize, CORNER_PIPE_E));
+                (boxSize.x * x + 64, boxSize.y * y + 64) + this->m_location, boxSize, CORNER_PIPE_E));
                 break;
             case SINK_E:
                 this->m_map[y].push_back(std::make_unique <Sink>(sf::Vector2f
-                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, SINK_E, SINK_UP));
-                break;
-//            case SINK_DOWN:
-//                this->m_map[y].push_back(std::make_unique <Sink>(sf::Vector2f
-//                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, SINK_E, SINK_DOWN));
-//                break;
-//            case SINK_LEFT:
-//                this->m_map[y].push_back(std::make_unique <Sink>(sf::Vector2f
-//                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, SINK_E, SINK_LEFT));
-//                break;
-//            case SINK_RIGHT:
-//                this->m_map[y].push_back(std::make_unique <Sink>(sf::Vector2f
-//                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, SINK_E, SINK_RIGHT));
+                (boxSize.x * x + 64, boxSize.y * y + 64) + this->m_location, boxSize, SINK_E, SINK_UP));
                 break;
             case FAUCET_F:
                 this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
-                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, FAUCET_F));
+                (boxSize.x * x + 64, boxSize.y * y + 64) + this->m_location, boxSize, FAUCET_F));
                 faucetVec.push_back((Rotatable*)this->m_map[y][x].get());
                 break;
             default:
