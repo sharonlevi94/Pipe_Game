@@ -2,5 +2,5 @@
 #include "Square.h"
 class Sink : public Square {
 public:
-	using Square::Square;
+	Sink(const sf::Vector2f&, const sf::Vector2f&, int,char);
 };

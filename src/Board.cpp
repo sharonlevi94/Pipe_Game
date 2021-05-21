@@ -70,8 +70,10 @@ vector<Rotatable*> Board::loadNewLevel() {
     vector<vector<char>> map = m_levelReader.readNextLevel();
     vector<Rotatable*> faucetVec = {};
     
-    sf::Vector2f boxSize(this->getLevelSize().x / map[0].size(),
-                         this->getLevelSize().y / map.size());
+   // sf::Vector2f boxSize(this->getLevelSize().x / map[0].size(),
+   //                      this->getLevelSize().y / map.size());
+
+    sf::Vector2f boxSize(128,128);
 
     //reset last load parameters:
     this->releaseMap();
@@ -98,13 +100,25 @@ vector<Rotatable*> Board::loadNewLevel() {
                 this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
                 (boxSize.x * x + 32, boxSize.y * y) + this->m_location, boxSize, CORNER_PIPE_E));
                 break;
-            case SINK:
-                this->m_map[y].push_back(std::make_unique <Square>(sf::Vector2f
-                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, SINK_E));
+            case SINK_UP:
+                this->m_map[y].push_back(std::make_unique <Sink>(sf::Vector2f
+                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, SINK_E, SINK_UP));
+                break;
+            case SINK_DOWN:
+                this->m_map[y].push_back(std::make_unique <Sink>(sf::Vector2f
+                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, SINK_E, SINK_DOWN));
+                break;
+            case SINK_LEFT:
+                this->m_map[y].push_back(std::make_unique <Sink>(sf::Vector2f
+                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, SINK_E, SINK_LEFT));
+                break;
+            case SINK_RIGHT:
+                this->m_map[y].push_back(std::make_unique <Sink>(sf::Vector2f
+                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, SINK_E, SINK_RIGHT));
                 break;
             case FAUCET:
                 this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
-                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, FAUCET));
+                (boxSize.x * x, boxSize.y * y) + this->m_location, boxSize, FAUCET_F));
                 faucetVec.push_back((Rotatable*)this->m_map[y][x].get());
                 break;
             default:

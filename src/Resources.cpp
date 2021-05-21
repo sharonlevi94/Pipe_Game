@@ -88,21 +88,40 @@ void Resources::setObjects() {
                                    (PLUS_PIPE_E, std::move(texturesCreator)));
     this->m_texture[PLUS_PIPE_E]->loadFromFile(PLUS_PIPE_PATH);
 
-//    texturesCreator = std::make_unique<sf::Texture>();
-//    this->m_texture.insert(std::pair<int, std::unique_ptr <sf::Texture>>
-//                                   (SQUARE, std::move(texturesCreator)));
-//    this->m_texture[SQUARE]->loadFromFile(SQUARE_PATH);
-//
-//    texturesCreator = std::make_unique<sf::Texture>();
-//    this->m_texture.insert(std::pair<int, std::unique_ptr <sf::Texture>>
-//                                   (SQUARE, std::move(texturesCreator)));
-//    this->m_texture[SQUARE]->loadFromFile(SQUARE_PATH);
-//
-//    texturesCreator = std::make_unique<sf::Texture>();
-//    this->m_texture.insert(std::pair<int, std::unique_ptr <sf::Texture>>
-//                                   (SQUARE, std::move(texturesCreator)));
-//    this->m_texture[SQUARE]->loadFromFile(SQUARE_PATH);
+    texturesCreator = std::make_unique<sf::Texture>();
+    this->m_texture.insert(std::pair<int, std::unique_ptr <sf::Texture>>
+                                   (STRAIGHT_PIPE_F, std::move(texturesCreator)));
+    this->m_texture[STRAIGHT_PIPE_F]->loadFromFile(F_STRAIGHT_PIPE_PATH);
 
+    texturesCreator = std::make_unique<sf::Texture>();
+    this->m_texture.insert(std::pair<int, std::unique_ptr <sf::Texture>>
+                                   (CORNER_PIPE_F, std::move(texturesCreator)));
+    this->m_texture[CORNER_PIPE_F]->loadFromFile(F_CORNER_PIPE_PATH);
+
+    texturesCreator = std::make_unique<sf::Texture>();
+    this->m_texture.insert(std::pair<int, std::unique_ptr <sf::Texture>>
+                                   (PLUS_PIPE_F, std::move(texturesCreator)));
+    this->m_texture[PLUS_PIPE_F]->loadFromFile(F_PLUS_PIPE_PATH);
+
+	texturesCreator = std::make_unique<sf::Texture>();
+	this->m_texture.insert(std::pair<int, std::unique_ptr <sf::Texture>>
+		(T_PIPE_F, std::move(texturesCreator)));
+	this->m_texture[T_PIPE_F]->loadFromFile(F_T_PIPE_PATH);
+
+	texturesCreator = std::make_unique<sf::Texture>();
+	this->m_texture.insert(std::pair<int, std::unique_ptr <sf::Texture>>
+		(SINK_E, std::move(texturesCreator)));
+	this->m_texture[SINK_E]->loadFromFile(SINK_PATH);
+
+	texturesCreator = std::make_unique<sf::Texture>();
+	this->m_texture.insert(std::pair<int, std::unique_ptr <sf::Texture>>
+		(SINK_F, std::move(texturesCreator)));
+	this->m_texture[SINK_F]->loadFromFile(FULL_SINK_PATH);
+
+	texturesCreator = std::make_unique<sf::Texture>();
+	this->m_texture.insert(std::pair<int, std::unique_ptr <sf::Texture>>
+		(FAUCET_F, std::move(texturesCreator)));
+	this->m_texture[FAUCET_F]->loadFromFile(FAUCET_PATH);
 }
 //============================================================================
 /*void Resources::setSounds() {

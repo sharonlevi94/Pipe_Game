@@ -64,8 +64,20 @@ vector<vector<char>> DataReader::readNextLevel(){
                     row.push_back(T_PIPE);
                     break;
                 }
-                case SINK: {
-                    row.push_back(SINK);
+                case SINK_UP: {
+                    row.push_back(SINK_UP);
+                    break;
+                }
+                case SINK_DOWN: {
+                    row.push_back(SINK_DOWN);
+                    break;
+                }
+                case SINK_RIGHT: {
+                    row.push_back(SINK_RIGHT);
+                    break;
+                }
+                case SINK_LEFT: {
+                    row.push_back(SINK_LEFT);
                     break;
                 }
                 case FAUCET: {

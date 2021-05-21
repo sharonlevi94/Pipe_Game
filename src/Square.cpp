@@ -15,7 +15,7 @@ void Square::draw(sf::RenderWindow& window) {
 }
 
 sf::Sprite &Square:: getShape() {
-	return this->m_shape;
+	return this->m_shape; 
 }
 
 //void Square::setShape(sf::Sprite& shape) {

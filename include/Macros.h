@@ -13,18 +13,26 @@ constexpr auto MUSIC_PATH = "Music.ogg";
 constexpr auto BOARD_PATH = "Board.txt";
 constexpr auto BACKGROUND_PATH = "Background.png";
 constexpr auto GAME_LOGO_PATH = "Logo.png";
-constexpr auto STRAIGHT_PIPE_PATH = "straight_pipe.png";
-constexpr auto T_PIPE_PATH = "t_pipe.png";
-constexpr auto CORNER_PIPE_PATH = "corner_pipe.png";
-constexpr auto PLUS_PIPE_PATH = "plus_pipe.png";
-constexpr auto SINK_PIPE_PATH = "";
-constexpr auto FAUCET_PIPE_PATH = "";
 
+constexpr auto STRAIGHT_PIPE_PATH = "straight_pipe.png";
+constexpr auto F_STRAIGHT_PIPE_PATH = "straight_pipe_water.png";
+
+constexpr auto T_PIPE_PATH = "t_pipe.png";
+constexpr auto F_T_PIPE_PATH = "t_pipe_water.png";
+
+constexpr auto CORNER_PIPE_PATH = "corner_pipe.png";
+constexpr auto F_CORNER_PIPE_PATH = "corner_pipe_water.png";
+
+constexpr auto PLUS_PIPE_PATH = "plus_pipe.png";
+constexpr auto F_PLUS_PIPE_PATH = "plus_pipe_water.png";
+
+constexpr auto SINK_PATH = "sink.png";
+constexpr auto FULL_SINK_PATH = "full_sink.png";
+constexpr auto FAUCET_PATH = "faucet.png";
 
 //textures:
 constexpr auto BACKGROUND = 1;
-constexpr auto LEVEL_BACKGROUND = 2;
-constexpr auto GAME_LOGO = 3;
+constexpr auto GAME_LOGO = 2;
 
 constexpr auto STRAIGHT_PIPE_E = 10;
 constexpr auto STRAIGHT_PIPE_F = 11;
@@ -43,5 +51,9 @@ constexpr auto STRAIGHT_PIPE = '-';
 constexpr auto CORNER_PIPE = 'L';
 constexpr auto PLUS_PIPE = '+';
 constexpr auto T_PIPE = 'T';
-constexpr auto SINK = 'S';
 constexpr auto FAUCET = 'F';
+
+constexpr auto SINK_DOWN = 'S';
+constexpr auto SINK_UP = 'W';
+constexpr auto SINK_RIGHT = 'D';
+constexpr auto SINK_LEFT = 'A';
