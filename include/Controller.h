@@ -16,7 +16,5 @@ private:
 //	State m_gameState;
 	sf::Clock m_gameClock;
 	void levelUp();
-	Board m_board;
-	
 };
 

@@ -7,6 +7,7 @@ public:
 	void draw(sf::RenderWindow&);
 	sf::Sprite &getShape();
 //	const setShape(sf::Sprite&);
+	void rotate();
 
 private:
 	sf::Sprite m_shape;

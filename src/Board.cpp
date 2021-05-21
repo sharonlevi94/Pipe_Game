@@ -34,6 +34,16 @@ const Square* Board::getContent(const sf::Vector2f& location) const {
     return nullptr;
 }
 //============================================================================
+Square* Board::getContent(const sf::Vector2f& location) {
+    //    if (!this->m_background.getGlobalBounds().contains(location))
+    //        return nullptr;
+    int x = (int)((location.x - this->m_location.x) / (this->getLevelSize().x / this->m_map[0].size()));
+    int y = (int)((location.y - this->m_location.y) / (this->getLevelSize().y / this->m_map.size()));
+    if ((Rotatable*)(this->m_map[y][x].get()))
+        return ((Rotatable*)this->m_map[y][x].get());
+    return nullptr;
+}
+//============================================================================
 sf::Vector2f Board::getObjectSize()const{
     return sf::Vector2f{this->getLevelSize().x / this->m_map[0].size(),
                          this->getLevelSize().y / this->m_map.size() };
@@ -44,6 +54,7 @@ void Board::draw(sf::RenderWindow& window){
         for (int j = 0; j < this->m_map[i].size(); j++)
             if (m_map[i][j].get() != nullptr) {
                 m_map[i][j]->draw(window);
+             
             }
 }
 //============================================================================

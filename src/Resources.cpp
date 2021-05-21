@@ -1,12 +1,7 @@
 //============================= include section ==============================
 #include "Resources.h"
-<<<<<<< HEAD
-//#include <map>
-=======
 #include <map>
->>>>>>> e1b45695c719306c6489dfae788055327781d9d8
 #include "Macros.h"
-
 //============================= public section ===============================
 //==================== Constructors & destructors section ====================
 Resources::Resources() 

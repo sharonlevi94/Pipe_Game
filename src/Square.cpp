@@ -22,3 +22,10 @@ sf::Sprite &Square:: getShape() {
 //void Square::setShape(sf::Sprite& shape) {
 //	m_shape(shape);
 //}
+
+void Square::rotate() {
+	getShape().rotate(90.f);
+	//	sf::Sprite newShape = this->getShape();
+	//	newShape.rotate(90.f);
+	//	this->setShape(newShape);
+}

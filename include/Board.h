@@ -3,14 +3,8 @@
 #include <vector>
 #include <DataReader.h>
 #include "Square.h"
-<<<<<<< HEAD
-//========================== forward declarations ============================
-
-=======
-
 //========================== forward declarations ============================
 //class Square;
->>>>>>> e1b45695c719306c6489dfae788055327781d9d8
 class Rotatable;
 //============================== using section ===============================
 using std::vector;
@@ -33,7 +27,7 @@ public:
     const sf::Vector2f& getLocation() const;
     sf::Vector2f getObjectSize()const;
     const Square* getContent(const sf::Vector2f&) const;
-
+    Square* getContent(const sf::Vector2f&);
     //=========================== method section =============================
     void draw(sf::RenderWindow& );
     vector<Rotatable*>loadNewLevel();
