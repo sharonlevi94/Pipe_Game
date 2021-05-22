@@ -42,13 +42,14 @@ void Board::draw(sf::RenderWindow& window){
  * This function update the objects of the game to the current level game.
  * the function build a vector of moving objects ptrs & return it.
  */
-vector<Rotatable*> Board::loadNewLevel() {
+void Board::loadNewLevel() {
         sf::Vector2f boxSize(BOX_WIDTH, BOX_HEIGHT);
+        
         this->InitializeMap();
         this->m_faucetLoc = this->setFaucet(boxSize);
         this->setSinks(boxSize);
         this->buildRoutes(); //Bonus +4 pts
-
+        
         //reset last load parameters:
         this->releaseMap();
         this->m_map.resize(LEVEL_SIZE);
@@ -86,7 +87,7 @@ vector<Rotatable*> Board::loadNewLevel() {
             }
         }
         this->calcNeighbours(); //Bonus +2 pts
-        return m_sinks;
+        
 }
 //============================================================================
 /*
@@ -178,41 +179,55 @@ std::vector<sf::Vector2f> Board::rafflePoints() {
 }
 //============================================================================
 void Board::buildRoutePoint2Point(sf::Vector2f start, sf::Vector2f end) {
-    if (start.x != end.x) { //diff cols
-        if (end.y == start.y) { //same rows
-            if (end.x > start.x) { //end is right to start
+    sf::Vector2f boxSize(BOX_WIDTH, BOX_HEIGHT);
+    while (start != end) {
+        if (start.x != end.x) { //diff cols
+            if (end.y == start.y) { //same rows
+                if (end.x > start.x) { //end is right to start
 
+                    this->m_map[start.y][start.x + 1] = std::make_unique <Rotatable>(sf::Vector2f
+                    (boxSize.x * (start.x + 1) + 64, boxSize.y * start.y + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E);
+                    start.x++;
+                }
+                else {//end is left to start
+                    this->m_map[start.y][start.x - 1] = std::make_unique <Rotatable>(sf::Vector2f
+                    (boxSize.x * (start.x - 1) + 64, boxSize.y * start.y + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E);
+                    start.x--;
+                }
             }
-            else {//end is left to start
-
+            else { //diff rows
+                if (end.x > start.x) {
+                    if (end.y < start.y) { //case above & right
+                        this->m_map[start.y][start.x + 1] = std::make_unique <Rotatable>(sf::Vector2f
+                        (boxSize.x * (start.x + 1) + 64, boxSize.y * start.y + 64) + this->m_location, boxSize, CORNER_PIPE_E);
+                        start.x++;
+                    }
+                }
+                else {
+                    if (end.y < start.y) { //case above & left
+                        this->m_map[start.y][start.x - 1] = std::make_unique <Rotatable>(sf::Vector2f
+                        (boxSize.x * (start.x - 1) + 64, boxSize.y * start.y + 64) + this->m_location, boxSize, CORNER_PIPE_E);
+                        start.x--;
+                    }
+                }
             }
         }
-        else { //diff rows
-            if (end.x > start.x) { 
-                if (end.y < start.y) { //case above & right
-
-                }
-                else { //case down & right
-
-                }
+        else { //same cols
+            if (end.y < start.y) { // end above to start
+                this->m_map[start.y + 1][start.x] = std::make_unique <Rotatable>(sf::Vector2f
+                (boxSize.x * (start.x) + 64, boxSize.y * (start.y + 1) + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E);
+                start.y++;
             }
             else {
-                if (end.y < start.y) { //case above & left
-
-                }
-                else { //case down & left
-
-                }
+                this->m_map[start.y - 1][start.x] = std::make_unique <Rotatable>(sf::Vector2f
+                (boxSize.x * (start.x) + 64, boxSize.y * (start.y - 1) + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E);
+                start.y--;
             }
         }
     }
-    else { //same cols
-        if (end.y < start.y) { // end above to start
-
-        }
-        else {
-
-        }
+    if (end != m_faucetLoc) {
+        this->m_map[start.y][start.x] = std::make_unique <Rotatable>(sf::Vector2f
+        (boxSize.x * (start.x) + 64, boxSize.y * (start.y) + 64) + this->m_location, boxSize, PLUS_PIPE_E);
     }
 }
 //============================================================================

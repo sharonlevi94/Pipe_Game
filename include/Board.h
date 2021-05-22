@@ -26,7 +26,7 @@ public:
     Square* getContent(const sf::Vector2f&);
     //=========================== method section =============================
     void draw(sf::RenderWindow& );
-    vector<Rotatable*>loadNewLevel();
+    void loadNewLevel();
     void calcNeighbours();
     void loadLevelEffects();
 
