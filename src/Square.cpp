@@ -12,29 +12,22 @@ Square::Square(const sf::Vector2f& location,
 		(m_shape.getTexture()->getSize().y / 2.f) });
 	switch (type) {
 	case STRAIGHT_PIPE_E:
-		m_directions.down = true;
-		m_directions.up = true;
+		setDirections(true, true, false, false);
 		break;
 	case T_PIPE_E:
-		m_directions.up = true;
-		m_directions.left = true;
-		m_directions.right = true;
+		setDirections(true, true, true, false);
 		break;
 	case PLUS_PIPE_E:
-		m_directions.down = true;
-		m_directions.left = true;
-		m_directions.right = true;
-		m_directions.up = true;
+		setDirections(true, true, true, true);
 		break;
 	case CORNER_PIPE_E:
-		m_directions.up = true;
-		m_directions.left = true;
+		setDirections(true, false, true, false);
 		break;
 	case FAUCET_F:
-		m_directions.up = true;
+		setDirections(true, false, false, false);
 		break;
 	case SINK_E:
-		m_directions.up = true;
+		setDirections(true, false, false, false);
 	}
 }
 
@@ -53,4 +46,11 @@ void Square::rotate() {
 void Square::setNeighbours(std::vector<Square*> neighbours) {
 	for (auto& neighbour : neighbours) 
 		this->m_neighbours.push_back(neighbour);
+}
+
+void Square::setDirections(bool up, bool down, bool left, bool right) {
+	m_directions.up = up;
+	m_directions.down = down;
+	m_directions.left = left;
+	m_directions.right = right;
 }

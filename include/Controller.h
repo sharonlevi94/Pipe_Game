@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Board.h"
-
+#include "GameStats.h"
 class Controller {
 public:
 	Controller();
@@ -13,8 +13,9 @@ private:
 	int m_level;
 	int m_matrixSize;
 	Board m_board;
-//	State m_gameState;
+	GameStats m_gameStats;
 	sf::Clock m_gameClock;
+	int m_clicks;
 	void levelUp();
 };
 

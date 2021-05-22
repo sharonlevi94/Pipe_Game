@@ -5,7 +5,7 @@
 #include "Resources.h"
 #include <vector>
 #include "Rotatable.h"
-
+#include <ctime>
 using std::vector;
 //====================== Constructors & distructors section ==================
 Board::Board(const sf::Vector2f& location,
@@ -13,7 +13,7 @@ Board::Board(const sf::Vector2f& location,
         :/* m_levelReader(DataReader()),*/
           m_location(location),
         m_size(size) {
-        m_faucets = {};
+        m_sinks = {};     
 }
 //================================ gets section ==============================
 Square* Board::getContent(const sf::Vector2f& location) {
@@ -43,16 +43,22 @@ void Board::draw(sf::RenderWindow& window){
  * the function build a vector of moving objects ptrs & return it.
  */
 vector<Rotatable*> Board::loadNewLevel() {
-        vector<Rotatable*> faucetVec = {};
-        sf::Vector2f boxSize(128, 128);
+        sf::Vector2f boxSize(BOX_WIDTH, BOX_HEIGHT);
+        this->InitializeMap();
+        this->m_faucetLoc = this->setFaucet(boxSize);
+        this->setSinks(boxSize);
+        this->buildRoutes(); //Bonus +4 pts
+
         //reset last load parameters:
         this->releaseMap();
         this->m_map.resize(LEVEL_SIZE);
+        std::srand(time(0));
         int randVal = (std::rand() % (20 - 10 + 1) / 2) * 2 + 10;
+
         //allocating level's objects:
         for (int y = 0; y < LEVEL_SIZE; ++y) {
             for (int x = 0; x < LEVEL_SIZE; x++) {
-                randVal = (std::rand() % (20 - 10 + 1) / 2) * 2 + 10;
+                randVal = (rand() % (20 - 10 + 1) / 2) * 2 + 10;
                 switch (randVal)
                 {
                 case STRAIGHT_PIPE_E:
@@ -71,15 +77,7 @@ vector<Rotatable*> Board::loadNewLevel() {
                     this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
                     (boxSize.x * x + 64, boxSize.y * y + 64) + this->m_location, boxSize, CORNER_PIPE_E));
                     break;
-                case SINK_E:
-                    this->m_map[y].push_back(std::make_unique <Sink>(sf::Vector2f
-                    (boxSize.x * x + 64, boxSize.y * y + 64) + this->m_location, boxSize, SINK_E, SINK_E));
-                    break;
-                case FAUCET_F:
-                    this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
-                    (boxSize.x * x + 64, boxSize.y * y + 64) + this->m_location, boxSize, FAUCET_F));
-                    faucetVec.push_back((Rotatable*)this->m_map[y][x].get());
-                    break;
+
                 default:
                     this->m_map[y].push_back(nullptr); // ' ' inserted
                     break;
@@ -87,7 +85,8 @@ vector<Rotatable*> Board::loadNewLevel() {
                 }
             }
         }
-        return faucetVec;
+        this->calcNeighbours(); //Bonus +2 pts
+        return m_sinks;
 }
 //============================================================================
 /*
@@ -98,88 +97,130 @@ void Board::loadLevelEffects() {
 }
 //============================================================================
 void Board::calcNeighbours() {
-    this->calcInernalNeighbours();
-    //run on the external cols of the DB:
-    this->calcFirstColNeighbours();
-    this->calcLastColNeighbours();
+    //run on the internal DB
+std:vector<Square*> neighbours = {};
+    for (int row = 0; row < m_map.size(); row++) {
+        neighbours.clear();
+        for (int col = 0; col < m_map.size(); col++) {
+            neighbours.clear();
+            if (row > 0)
+                neighbours.push_back(m_map[row - 1][col].get()); //up
+            else
+                neighbours.push_back(nullptr);
+            if (row < m_map.size() - 1)
+                neighbours.push_back(m_map[row + 1][col].get()); //down
+            else
+                neighbours.push_back(nullptr);
+            if (col > 0)
+                neighbours.push_back(m_map[row][col - 1].get()); //left
+            else
+                neighbours.push_back(nullptr);
+            if (col < m_map.size() - 1)
+                neighbours.push_back(m_map[row][col + 1].get()); //right
+            else
+                neighbours.push_back(nullptr);
+
+            m_map[row][col]->setNeighbours(neighbours);
+        }
+    }
 }
 //============================== private section =============================
 void Board::releaseMap() {
     this->m_map.clear();
 }
 //============================================================================
-void Board::calcInernalNeighbours() {
-    //run on the internal DB
-    for (int row = 0; row < m_size.y; row++) {
-    std:vector<Square*> neighbours = {};
-        for (int col = 1; col < m_size.x - 1; col++) {
-            if (row > 0)
-                neighbours.push_back(m_map[row - 1][col].get()); //up
-            else
-                neighbours.push_back(nullptr);
-            if (row < m_size.y - 1)
-                neighbours.push_back(m_map[row + 1][col].get()); //down
-            else
-                neighbours.push_back(nullptr);
-            neighbours.push_back(m_map[row][col - 1].get()); //left
-            neighbours.push_back(m_map[row][col + 1].get()); //right
-            m_map[row][col]->setNeighbours(neighbours);
+void Board::setSinks(sf::Vector2f boxSize) {
+    for (int sink = 0; sink <= 2; sink++) {
+        int randRow = std::rand() % BOARD_SIZE;
+        int randCol = std::rand() % BOARD_SIZE;
+        while (m_map[randRow][randCol].get() != nullptr) { //find empty place for new sink
+            int randRow = std::rand() % BOARD_SIZE;
+            int randCol = std::rand() % BOARD_SIZE;
+        }
+        this->m_map[randRow].push_back(std::make_unique <Square>(sf::Vector2f
+        (boxSize.x * randCol + 64, boxSize.y * randRow + 64) + this->m_location, boxSize, FAUCET_F));
+        //save the place of the sink in the DB:
+        m_sinks.push_back(sf::Vector2f(randRow, randCol));
+    }
+}
+//============================================================================
+sf::Vector2f Board::setFaucet(sf::Vector2f boxSize) {
+        int randRow = std::rand() % BOARD_SIZE;
+        int randCol = std::rand() % BOARD_SIZE;
+        while (m_map[randRow][randCol].get() != nullptr) { 
+            int randRow = std::rand() % BOARD_SIZE;
+            int randCol = std::rand() % BOARD_SIZE;
+        }
+        this->m_map[randRow][randCol] = std::make_unique <Rotatable>(sf::Vector2f
+        (boxSize.x * randCol + 64, boxSize.y * randRow + 64) + this->m_location, boxSize, SINK_E);
+
+        return sf::Vector2f(randRow, randCol);
+}
+//============================================================================
+void Board::InitializeMap() {
+    for(int row =0 ; row<BOARD_SIZE ; row++)
+        for (int col = 0; col < BOARD_SIZE; col++) 
+            m_map[row].push_back(nullptr);
+}
+//============================================================================
+std::vector<sf::Vector2f> Board::rafflePoints() {
+    std::vector<sf::Vector2f> points = {};
+    for (int point =0; point < ROUTE_POINTS; point++) {
+        int randRow = std::rand() % BOARD_SIZE;
+        int randCol = std::rand() % BOARD_SIZE;
+        while (m_map[randRow][randCol].get() != nullptr) { //find empty place for new sink
+            int randRow = std::rand() % BOARD_SIZE;
+            int randCol = std::rand() % BOARD_SIZE;
+        }
+        points.push_back(sf::Vector2f(randRow, randCol));
+    }
+    return points;
+}
+//============================================================================
+void Board::buildRoutePoint2Point(sf::Vector2f start, sf::Vector2f end) {
+    if (start.x != end.x) { //diff cols
+        if (end.y == start.y) { //same rows
+            if (end.x > start.x) { //end is right to start
+
+            }
+            else {//end is left to start
+
+            }
+        }
+        else { //diff rows
+            if (end.x > start.x) { 
+                if (end.y < start.y) { //case above & right
+
+                }
+                else { //case down & right
+
+                }
+            }
+            else {
+                if (end.y < start.y) { //case above & left
+
+                }
+                else { //case down & left
+
+                }
+            }
+        }
+    }
+    else { //same cols
+        if (end.y < start.y) { // end above to start
+
+        }
+        else {
+
         }
     }
 }
 //============================================================================
-void Board::calcFirstColNeighbours() {
-    //first col
-    for (int row = 0; row < m_size.x; row++) {
-    std:vector<Square*> neighbours = {};
-        if (row == 0) { //top left
-            neighbours.push_back(nullptr);
-            neighbours.push_back(m_map[row + 1][0].get());
-            neighbours.push_back(nullptr);
-            neighbours.push_back(m_map[row][1].get());
-            m_map[row][0]->setNeighbours(neighbours);
-        }
-        if (row == m_size.x - 1) { //bottom left
-            neighbours.push_back(m_map[row - 1][0].get());
-            neighbours.push_back(nullptr);
-            neighbours.push_back(nullptr);
-            neighbours.push_back(m_map[row][1].get());
-            m_map[row][0]->setNeighbours(neighbours);
-        }
-        else {
-            neighbours.push_back(m_map[row - 1][0].get());
-            neighbours.push_back(m_map[row + 1][0].get());
-            neighbours.push_back(nullptr);
-            neighbours.push_back(m_map[row][1].get());
-            m_map[row][0]->setNeighbours(neighbours);
-        }
-    }
-}
-//============================================================================
-void Board::calcLastColNeighbours() {
-    //last col
-    for (int row = 0; row < m_size.x; row++) {
-    std:vector<Square*> neighbours = {};
-        if (row == 0) { //top right
-            neighbours.push_back(nullptr);
-            neighbours.push_back(m_map[row + 1][m_size.x].get());
-            neighbours.push_back(m_map[row][m_size.x - 2].get());
-            neighbours.push_back(nullptr);
-            m_map[row][0]->setNeighbours(neighbours);
-        }
-        if (row == m_size.x - 1) { //bottom right
-            neighbours.push_back(m_map[row - 1][m_size.x].get());
-            neighbours.push_back(nullptr);
-            neighbours.push_back(m_map[row][m_size.x - 2].get());
-            neighbours.push_back(nullptr);
-            m_map[row][0]->setNeighbours(neighbours);
-        }
-        else {
-            neighbours.push_back(m_map[row - 1][m_size.x].get());
-            neighbours.push_back(m_map[row + 1][m_size.x].get());
-            neighbours.push_back(m_map[row][m_size.x - 2].get());
-            neighbours.push_back(nullptr);
-            m_map[row][0]->setNeighbours(neighbours);
-        }
+void Board::buildRoutes() {
+    for (auto& sink: m_sinks) {
+        std::vector<sf::Vector2f> routePoints = this->rafflePoints();
+            buildRoutePoint2Point(sink, routePoints[0]);
+            buildRoutePoint2Point(routePoints[0], routePoints[1]);
+            buildRoutePoint2Point(routePoints[1],m_faucetLoc);
     }
 }

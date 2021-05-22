@@ -35,11 +35,14 @@ private:
     vector<vector<std::unique_ptr<Square>>> m_map;
     sf::Vector2f m_location;
     sf::Vector2f m_size;
-    vector<Rotatable*> m_faucets;
-
+    sf::Vector2f m_faucetLoc;
+    vector<sf::Vector2f> m_sinks;
     //====================== privete methods section =========================
     void releaseMap();
-    void calcInernalNeighbours();
-    void calcFirstColNeighbours();
-    void calcLastColNeighbours();
+    void buildRoutes();
+    void setSinks(sf::Vector2f);
+    sf::Vector2f setFaucet(sf::Vector2f);
+    void InitializeMap();
+    std::vector<sf::Vector2f> rafflePoints();
+    void buildRoutePoint2Point(sf::Vector2f, sf::Vector2f);
 };

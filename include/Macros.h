@@ -7,7 +7,16 @@ constexpr auto WIDTH = 1920;
 constexpr auto BOARD_SIZE = LEVEL_SIZE * SQUARE_LEN;
 constexpr auto BOX_WIDTH = 128;
 constexpr auto BOX_HEIGHT = 128;
+constexpr auto MAX_SINKS = 3;
+constexpr auto MAX_FAUCETS = 3;
+constexpr auto ROUTE_POINTS = 2;
 
+//Directions
+constexpr auto DIRECTIONS_NUM = 4;
+constexpr auto UP = 1;
+constexpr auto DOWN = 2;
+constexpr auto LEFT = 3;
+constexpr auto RIGHT = 4;
 //music:
 constexpr auto MUSIC_VOLUME = 50;
 constexpr auto MUSIC_PATH = "Music.ogg";

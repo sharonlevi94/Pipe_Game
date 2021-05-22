@@ -70,6 +70,24 @@ build CMakeFiles\oop2_ex04.dir\src\Sink.cpp.obj: CXX_COMPILER__oop2_ex04_Debug .
   TARGET_COMPILE_PDB = CMakeFiles\oop2_ex04.dir\
   TARGET_PDB = oop2_ex04.pdb
 
+build CMakeFiles\oop2_ex04.dir\src\Graph.cpp.obj: CXX_COMPILER__oop2_ex04_Debug ..\..\..\src\Graph.cpp || cmake_object_order_depends_target_oop2_ex04
+  DEFINES = -DSFML_STATIC
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /permissive- /Zc:externConstexpr /Zc:inline -std:c++17
+  INCLUDES = -I..\..\..\include -IC:\SFML\SFML-2.5.1\include
+  OBJECT_DIR = CMakeFiles\oop2_ex04.dir
+  OBJECT_FILE_DIR = CMakeFiles\oop2_ex04.dir\src
+  TARGET_COMPILE_PDB = CMakeFiles\oop2_ex04.dir\
+  TARGET_PDB = oop2_ex04.pdb
+
+build CMakeFiles\oop2_ex04.dir\src\GameStats.cpp.obj: CXX_COMPILER__oop2_ex04_Debug ..\..\..\src\GameStats.cpp || cmake_object_order_depends_target_oop2_ex04
+  DEFINES = -DSFML_STATIC
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /permissive- /Zc:externConstexpr /Zc:inline -std:c++17
+  INCLUDES = -I..\..\..\include -IC:\SFML\SFML-2.5.1\include
+  OBJECT_DIR = CMakeFiles\oop2_ex04.dir
+  OBJECT_FILE_DIR = CMakeFiles\oop2_ex04.dir\src
+  TARGET_COMPILE_PDB = CMakeFiles\oop2_ex04.dir\
+  TARGET_PDB = oop2_ex04.pdb
+
 build CMakeFiles\oop2_ex04.dir\src\Controller.cpp.obj: CXX_COMPILER__oop2_ex04_Debug ..\..\..\src\Controller.cpp || cmake_object_order_depends_target_oop2_ex04
   DEFINES = -DSFML_STATIC
   FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -MDd /W4 /permissive- /Zc:externConstexpr /Zc:inline -std:c++17
@@ -114,7 +132,7 @@ build CMakeFiles\oop2_ex04.dir\src\Rotatable.cpp.obj: CXX_COMPILER__oop2_ex04_De
 #############################################
 # Link the executable oop2_ex04.exe
 
-build oop2_ex04.exe: CXX_EXECUTABLE_LINKER__oop2_ex04_Debug CMakeFiles\oop2_ex04.dir\src\main.cpp.obj CMakeFiles\oop2_ex04.dir\src\Square.cpp.obj CMakeFiles\oop2_ex04.dir\src\Sink.cpp.obj CMakeFiles\oop2_ex04.dir\src\Controller.cpp.obj CMakeFiles\oop2_ex04.dir\src\Resources.cpp.obj CMakeFiles\oop2_ex04.dir\src\Board.cpp.obj CMakeFiles\oop2_ex04.dir\src\Rotatable.cpp.obj | C$:\SFML\SFML-2.5.1\lib\sfml-graphics-s-d.lib C$:\SFML\SFML-2.5.1\lib\sfml-main-d.lib C$:\SFML\SFML-2.5.1\lib\sfml-audio-s-d.lib C$:\SFML\SFML-2.5.1\lib\sfml-main-d.lib C$:\SFML\SFML-2.5.1\lib\sfml-window-s-d.lib C$:\SFML\SFML-2.5.1\lib\freetype.lib C$:\SFML\SFML-2.5.1\lib\openal32.lib C$:\SFML\SFML-2.5.1\lib\sfml-system-s-d.lib C$:\SFML\SFML-2.5.1\lib\vorbisfile.lib C$:\SFML\SFML-2.5.1\lib\vorbisenc.lib C$:\SFML\SFML-2.5.1\lib\vorbis.lib C$:\SFML\SFML-2.5.1\lib\ogg.lib C$:\SFML\SFML-2.5.1\lib\flac.lib
+build oop2_ex04.exe: CXX_EXECUTABLE_LINKER__oop2_ex04_Debug CMakeFiles\oop2_ex04.dir\src\main.cpp.obj CMakeFiles\oop2_ex04.dir\src\Square.cpp.obj CMakeFiles\oop2_ex04.dir\src\Sink.cpp.obj CMakeFiles\oop2_ex04.dir\src\Graph.cpp.obj CMakeFiles\oop2_ex04.dir\src\GameStats.cpp.obj CMakeFiles\oop2_ex04.dir\src\Controller.cpp.obj CMakeFiles\oop2_ex04.dir\src\Resources.cpp.obj CMakeFiles\oop2_ex04.dir\src\Board.cpp.obj CMakeFiles\oop2_ex04.dir\src\Rotatable.cpp.obj | C$:\SFML\SFML-2.5.1\lib\sfml-graphics-s-d.lib C$:\SFML\SFML-2.5.1\lib\sfml-main-d.lib C$:\SFML\SFML-2.5.1\lib\sfml-audio-s-d.lib C$:\SFML\SFML-2.5.1\lib\sfml-main-d.lib C$:\SFML\SFML-2.5.1\lib\sfml-window-s-d.lib C$:\SFML\SFML-2.5.1\lib\freetype.lib C$:\SFML\SFML-2.5.1\lib\openal32.lib C$:\SFML\SFML-2.5.1\lib\sfml-system-s-d.lib C$:\SFML\SFML-2.5.1\lib\vorbisfile.lib C$:\SFML\SFML-2.5.1\lib\vorbisenc.lib C$:\SFML\SFML-2.5.1\lib\vorbis.lib C$:\SFML\SFML-2.5.1\lib\ogg.lib C$:\SFML\SFML-2.5.1\lib\flac.lib
   FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -MDd
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:windows
   LINK_LIBRARIES = C:\SFML\SFML-2.5.1\lib\sfml-graphics-s-d.lib  C:\SFML\SFML-2.5.1\lib\sfml-main-d.lib  C:\SFML\SFML-2.5.1\lib\sfml-audio-s-d.lib  C:\SFML\SFML-2.5.1\lib\sfml-main-d.lib  C:\SFML\SFML-2.5.1\lib\sfml-window-s-d.lib  gdi32.lib  OpenGL32.lib  C:\SFML\SFML-2.5.1\lib\freetype.lib  C:\SFML\SFML-2.5.1\lib\openal32.lib  C:\SFML\SFML-2.5.1\lib\sfml-system-s-d.lib  winmm.lib  C:\SFML\SFML-2.5.1\lib\vorbisfile.lib  C:\SFML\SFML-2.5.1\lib\vorbisenc.lib  C:\SFML\SFML-2.5.1\lib\vorbis.lib  C:\SFML\SFML-2.5.1\lib\ogg.lib  C:\SFML\SFML-2.5.1\lib\flac.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
