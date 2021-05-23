@@ -46,4 +46,5 @@ private:
     std::vector<sf::Vector2f> rafflePoints();
     void buildRoutePoint2Point( sf::Vector2f,  sf::Vector2f);
     sf::Vector2f findSinkDirection( Sink*, const sf::Vector2f&);
+    bool isSink(sf::Vector2f);
 };
