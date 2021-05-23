@@ -1,8 +1,8 @@
 #pragma once
 //============================ include section ===============================
 #include <vector>
-//#include <DataReader.h>
 #include "Square.h"
+#include "Sink.h"
 //========================== forward declarations ============================
 //class Square;
 class Rotatable;
@@ -40,9 +40,10 @@ private:
     //====================== privete methods section =========================
     void releaseMap();
     void buildRoutes();
-    void setSinks(sf::Vector2f);
-    sf::Vector2f setFaucet(sf::Vector2f);
+    void setSinks(const sf::Vector2f&);
+    sf::Vector2f setFaucet(const sf::Vector2f&);
     void InitializeMap();
     std::vector<sf::Vector2f> rafflePoints();
-    void buildRoutePoint2Point(sf::Vector2f, sf::Vector2f);
+    void buildRoutePoint2Point( sf::Vector2f,  sf::Vector2f);
+    sf::Vector2f findSinkDirection( Sink*, const sf::Vector2f&);
 };

@@ -14,16 +14,23 @@ Sink::Sink(const sf::Vector2f& location,
 	case DOWN:
 		this->rotate(); this->rotate();
 		setDirections(false, true, false, false);
+		m_direction = DOWN;
 		break;
 	case LEFT:
 		this->rotate(); this->rotate(); this->rotate();
 		setDirections(false, false, true, false);
+		m_direction = LEFT;
 		break;
 	case RIGHT:
 		this->rotate();
 		setDirections(false, false, false, true);
+		m_direction = RIGHT;
 		break;
 	default:
 		break;
 	}
+}
+
+int Sink::getDirection()const {
+	return m_direction;
 }

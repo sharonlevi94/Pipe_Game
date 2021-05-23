@@ -49,8 +49,8 @@ void Square::setNeighbours(std::vector<Square*> neighbours) {
 }
 
 void Square::setDirections(bool up, bool down, bool left, bool right) {
-	m_directions.up = up;
-	m_directions.down = down;
-	m_directions.left = left;
-	m_directions.right = right;
+	m_directions.m_up = up;
+	m_directions.m_down = down;
+	m_directions.m_left = left;
+	m_directions.m_right = right;
 }
