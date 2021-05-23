@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "Board.h"
 #include "GameStats.h"
+
 class Controller {
 public:
 	Controller();
@@ -14,8 +15,10 @@ private:
 	int m_matrixSize;
 	Board m_board;
 	GameStats m_gameStats;
-	sf::Clock m_gameClock;
 	int m_clicks;
+
+//	State m_gameState;
+	sf::Clock m_gameClock;
 	void levelUp();
 };
 

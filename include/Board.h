@@ -36,7 +36,7 @@ private:
     sf::Vector2f m_location;
     sf::Vector2f m_size;
     sf::Vector2f m_faucetLoc;
-    vector<sf::Vector2f> m_sinks;
+    sf::Vector2f m_sinkLoc;
     //====================== privete methods section =========================
     void releaseMap();
     void buildRoutes();
