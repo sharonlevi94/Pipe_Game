@@ -2,9 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\include",
-    "\\resources",
     "\\src"
   ],
-  "SelectedNode": "\\src\\main.cpp",
+  "SelectedNode": "\\src\\Controller.cpp",
   "PreviewInSolutionExplorer": false
 }

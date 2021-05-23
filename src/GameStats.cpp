@@ -23,5 +23,4 @@ void GameStats::showMenu(sf::RenderWindow &window, int clicks, int gameTime) {
     window.draw(m_shape);
     window.draw(m_clicks);
     window.draw(m_time);
-    window.display();
 }

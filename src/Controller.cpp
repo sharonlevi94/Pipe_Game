@@ -21,7 +21,6 @@ void Controller::run() {
     while (m_window.isOpen())
     {
         m_window.clear();
-        //this->m_window.draw(m_background);
         this->draw();
         m_window.display();
 
@@ -38,6 +37,7 @@ void Controller::run() {
                     if (dynamic_cast<Rotatable*>(this->m_board.getContent(sf::Vector2f((float)event.mouseButton.x, (float)event.mouseButton.y)))) {
                         this->m_board.getContent(
                             sf::Vector2f((float)event.mouseButton.x, (float)event.mouseButton.y))->rotate();
+                        m_clicks++;
                     }
                 break;
             default:

@@ -34,7 +34,6 @@ void Board::draw(sf::RenderWindow& window){
         for (int j = 0; j < this->m_map[i].size(); j++)
             if (m_map[i][j].get() != nullptr) {
                 m_map[i][j]->draw(window);
-             
             }
 }
 //============================================================================
@@ -45,49 +44,48 @@ void Board::draw(sf::RenderWindow& window){
 void Board::loadNewLevel() {
         sf::Vector2f boxSize(BOX_WIDTH, BOX_HEIGHT);
         
-        this->InitializeMap();
-        this->m_faucetLoc = this->setFaucet(boxSize);
-        this->setSinks(boxSize);
-        this->buildRoutes(); //Bonus +4 pts
-        
         //reset last load parameters:
         this->releaseMap();
         this->m_map.resize(LEVEL_SIZE);
         std::srand(time(0));
         int randVal = (std::rand() % (20 - 10 + 1) / 2) * 2 + 10;
 
-        //allocating level's objects:
+        this->InitializeMap();
+        this->m_faucetLoc = this->setFaucet(boxSize);
+        this->setSinks(boxSize);
+        //this->buildRoutes(); //Bonus +4 pts
+        /*
+        //allocating the rest of level's objects:
         for (int y = 0; y < LEVEL_SIZE; ++y) {
             for (int x = 0; x < LEVEL_SIZE; x++) {
-                randVal = (rand() % (20 - 10 + 1) / 2) * 2 + 10;
-                switch (randVal)
-                {
-                case STRAIGHT_PIPE_E:
-                    this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
-                    (boxSize.x * x + 64, boxSize.y * y + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E));
-                    break;
-                case T_PIPE_E:
-                    this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
-                    (boxSize.x * x + 64, boxSize.y * y + 64) + this->m_location, boxSize, T_PIPE_E));
-                    break;
-                case PLUS_PIPE_E:
-                    this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
-                    (boxSize.x * x + 64, boxSize.y * y + 64) + this->m_location, boxSize, PLUS_PIPE_E));
-                    break;
-                case CORNER_PIPE_E:
-                    this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
-                    (boxSize.x * x + 64, boxSize.y * y + 64) + this->m_location, boxSize, CORNER_PIPE_E));
-                    break;
-
-                default:
-                    this->m_map[y].push_back(nullptr); // ' ' inserted
-                    break;
-
+                if (m_map[y][x] == nullptr) {
+                    randVal = (rand() % (20 - 10 + 1) / 2) * 2 + 10;
+                    switch (randVal)
+                    {
+                    case STRAIGHT_PIPE_E:
+                        this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
+                        (boxSize.x * x + 64, boxSize.y * y + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E));
+                        break;
+                    case T_PIPE_E:
+                        this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
+                        (boxSize.x * x + 64, boxSize.y * y + 64) + this->m_location, boxSize, T_PIPE_E));
+                        break;
+                    case PLUS_PIPE_E:
+                        this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
+                        (boxSize.x * x + 64, boxSize.y * y + 64) + this->m_location, boxSize, PLUS_PIPE_E));
+                        break;
+                    case CORNER_PIPE_E:
+                        this->m_map[y].push_back(std::make_unique <Rotatable>(sf::Vector2f
+                        (boxSize.x * x + 64, boxSize.y * y + 64) + this->m_location, boxSize, CORNER_PIPE_E));
+                        break;
+                    default:
+                        break;
+                    }
                 }
             }
         }
-        this->calcNeighbours(); //Bonus +2 pts
-        
+        */
+        //this->calcNeighbours(); //Bonus +2 pts   
 }
 //============================================================================
 /*
@@ -132,35 +130,35 @@ void Board::releaseMap() {
 //============================================================================
 void Board::setSinks(sf::Vector2f boxSize) {
     for (int sink = 0; sink <= 2; sink++) {
-        int randRow = std::rand() % BOARD_SIZE;
-        int randCol = std::rand() % BOARD_SIZE;
+        int randRow = std::rand() % LEVEL_SIZE;
+        int randCol = std::rand() % LEVEL_SIZE;
         while (m_map[randRow][randCol].get() != nullptr) { //find empty place for new sink
-            int randRow = std::rand() % BOARD_SIZE;
-            int randCol = std::rand() % BOARD_SIZE;
+            int randRow = std::rand() % LEVEL_SIZE;
+            int randCol = std::rand() % LEVEL_SIZE;
         }
         this->m_map[randRow].push_back(std::make_unique <Square>(sf::Vector2f
-        (boxSize.x * randCol + 64, boxSize.y * randRow + 64) + this->m_location, boxSize, FAUCET_F));
+        (boxSize.x * randCol + 64, boxSize.y * randRow + 64) + this->m_location, boxSize, SINK_E));
         //save the place of the sink in the DB:
         m_sinks.push_back(sf::Vector2f(randRow, randCol));
     }
 }
 //============================================================================
 sf::Vector2f Board::setFaucet(sf::Vector2f boxSize) {
-        int randRow = std::rand() % BOARD_SIZE;
-        int randCol = std::rand() % BOARD_SIZE;
+        int randRow = std::rand() % LEVEL_SIZE;
+        int randCol = std::rand() % LEVEL_SIZE;
         while (m_map[randRow][randCol].get() != nullptr) { 
-            int randRow = std::rand() % BOARD_SIZE;
-            int randCol = std::rand() % BOARD_SIZE;
+            int randRow = std::rand() % LEVEL_SIZE;
+            int randCol = std::rand() % LEVEL_SIZE;
         }
         this->m_map[randRow][randCol] = std::make_unique <Rotatable>(sf::Vector2f
-        (boxSize.x * randCol + 64, boxSize.y * randRow + 64) + this->m_location, boxSize, SINK_E);
+        (boxSize.x * randCol + 64, boxSize.y * randRow + 64) + this->m_location, boxSize, FAUCET_F);
 
         return sf::Vector2f(randRow, randCol);
 }
 //============================================================================
 void Board::InitializeMap() {
-    for(int row =0 ; row<BOARD_SIZE ; row++)
-        for (int col = 0; col < BOARD_SIZE; col++) 
+    for(int row =0 ; row< LEVEL_SIZE; row++)
+        for (int col = 0; col < LEVEL_SIZE; col++)
             m_map[row].push_back(nullptr);
 }
 //============================================================================
