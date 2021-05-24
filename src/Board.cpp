@@ -58,8 +58,8 @@ void Board::loadNewLevel() {
         //allocating the rest of level's objects:
         for (int x = 0; x < LEVEL_SIZE; x++) {
             for (int y = 0; y < LEVEL_SIZE; y++) {
-                if (m_map[x][y] == nullptr) {
-                    randVal = (rand() % (20 - 10 + 1) / 2) * 2 + 10;
+                if (m_map[x][y].get() == nullptr) {
+                    randVal = (rand() % (16 - 10 + 1) / 2) * 2 + 10;
                     switch (randVal)
                     {
                     case STRAIGHT_PIPE_E:
@@ -146,12 +146,12 @@ void Board::setSinks(const sf::Vector2f& boxSize) {
 sf::Vector2f Board::setFaucet(const sf::Vector2f& boxSize) {
         int randRow = std::rand() % LEVEL_SIZE;
         int randCol = std::rand() % LEVEL_SIZE;
-//        while (m_map[randRow][randCol].get() != nullptr) {
-//            randRow = std::rand() % LEVEL_SIZE;
-//            randCol = std::rand() % LEVEL_SIZE;
-//        }
+        while (m_map[randRow][randCol].get() != nullptr) {
+            randRow = std::rand() % LEVEL_SIZE;
+            randCol = std::rand() % LEVEL_SIZE;
+        }
         this->m_map[randRow][randCol] = std::make_unique <Rotatable>(sf::Vector2f
-        (boxSize.x * randRow + 64, boxSize.y * randCol + 64) + this->m_location, boxSize, FAUCET_F);
+        (boxSize.x * randCol + 64, boxSize.y * randRow + 64) + this->m_location, boxSize, FAUCET_F);
 
         return sf::Vector2f(randRow, randCol);
 }
@@ -192,9 +192,11 @@ void Board::buildRoutePoint2Point(sf::Vector2f start,  sf::Vector2f end) {
                         }
                         if (start == end) {
                             start.x--;
-                            this->m_map[start.x][start.y] = std::make_unique <Rotatable>(sf::Vector2f
-                            (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E);
-                            start.x++;
+                            break;
+//                            start.x--;
+//                            this->m_map[start.x][start.y] = std::make_unique <Rotatable>(sf::Vector2f
+//                            (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E);
+//                            start.x++;
                         }else{
                         this->m_map[start.x][start.y] = std::make_unique <Rotatable>(sf::Vector2f
                         (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E);
@@ -209,6 +211,7 @@ void Board::buildRoutePoint2Point(sf::Vector2f start,  sf::Vector2f end) {
                             continue;
                         }
                         if (start == end) {
+                            start.x++;
                             break;
 //                            start.x++;
 //                            this->m_map[start.x][start.y] = std::make_unique <Rotatable>(sf::Vector2f
@@ -223,14 +226,15 @@ void Board::buildRoutePoint2Point(sf::Vector2f start,  sf::Vector2f end) {
                 else { //diff rows
                     if (end.x > start.x) {
                         //case right
-                        start.y++;
+                        start.x++;
                         if (m_map[int(start.x)][int(start.y)].get() != nullptr and start != end) {
                             if (start.x + 1 < BOARD_SIZE) start.x++;
                             else start.x--;
-                            start.y--;
+                            start.x--;
                             continue;
                         }
                         if (start == end) {
+                            start.x--;
                             break;
 //                            start.y--;
 //                            this->m_map[start.x][start.y] = std::make_unique <Rotatable>(sf::Vector2f
@@ -243,8 +247,9 @@ void Board::buildRoutePoint2Point(sf::Vector2f start,  sf::Vector2f end) {
                     }
                     else {
                         //case left
-                        start.y--;
+                        start.x--;
                         if (start == end) {
+                            start.x++;
                             break;
                             start.y++;
                             if (m_map[int(start.x)][int(start.y)].get() != nullptr)
@@ -268,6 +273,7 @@ void Board::buildRoutePoint2Point(sf::Vector2f start,  sf::Vector2f end) {
                 if (end.y < start.y) { // end above to start
                     start.y--;
                     if (start == end) {
+                        start.y++;
                         break;
                         start.x++;
                         if (m_map[int(start.x)][int(start.y)].get() != nullptr) {
@@ -293,6 +299,7 @@ void Board::buildRoutePoint2Point(sf::Vector2f start,  sf::Vector2f end) {
                         continue;
                     }
                     if (start == end) {
+                        start.y--;
                         break;
                         start.x--;
                         this->m_map[start.x][start.y] = std::make_unique <Rotatable>(sf::Vector2f
@@ -307,6 +314,7 @@ void Board::buildRoutePoint2Point(sf::Vector2f start,  sf::Vector2f end) {
         }
         else {
             start.x++;
+
         }
     }
 
@@ -320,6 +328,8 @@ void Board::buildRoutes() {
         std::vector<sf::Vector2f> routePoints = this->rafflePoints();
         if (dynamic_cast<Sink*>(m_map[m_sinkLoc.x][m_sinkLoc.y].get())) {
             sf::Vector2f sinkNeighbour = findSinkDirection((Sink*)m_map[m_sinkLoc.x][m_sinkLoc.y].get(),m_sinkLoc);
+            m_map[sinkNeighbour.x][sinkNeighbour.y] = std::make_unique <Rotatable>(sf::Vector2f
+                    (128 * sinkNeighbour.y + 64, 128 * sinkNeighbour.x + 64) + this->m_location, sf::Vector2f(128, 128), PLUS_PIPE_E);
             buildRoutePoint2Point(sinkNeighbour, routePoints[0]);
         }
         
