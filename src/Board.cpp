@@ -193,10 +193,6 @@ void Board::buildRoutePoint2Point(sf::Vector2f start,  sf::Vector2f end) {
                         if (start == end) {
                             start.x--;
                             break;
-//                            start.x--;
-//                            this->m_map[start.x][start.y] = std::make_unique <Rotatable>(sf::Vector2f
-//                            (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E);
-//                            start.x++;
                         }else{
                         this->m_map[start.x][start.y] = std::make_unique <Rotatable>(sf::Vector2f
                         (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E);
@@ -213,10 +209,6 @@ void Board::buildRoutePoint2Point(sf::Vector2f start,  sf::Vector2f end) {
                         if (start == end) {
                             start.x++;
                             break;
-//                            start.x++;
-//                            this->m_map[start.x][start.y] = std::make_unique <Rotatable>(sf::Vector2f
-//                            (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E);
-//                            start.x--;
                         }else{
                         this->m_map[start.x][start.y] = std::make_unique <Rotatable>(sf::Vector2f
                         (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E);
@@ -236,10 +228,6 @@ void Board::buildRoutePoint2Point(sf::Vector2f start,  sf::Vector2f end) {
                         if (start == end) {
                             start.x--;
                             break;
-//                            start.y--;
-//                            this->m_map[start.x][start.y] = std::make_unique <Rotatable>(sf::Vector2f
-//                            (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E);
-//                            start.y++;
                         }else{
                         this->m_map[start.x][start.y] = std::make_unique <Rotatable>(sf::Vector2f
                         (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, T_PIPE_E);
@@ -251,17 +239,6 @@ void Board::buildRoutePoint2Point(sf::Vector2f start,  sf::Vector2f end) {
                         if (start == end) {
                             start.x++;
                             break;
-                            start.y++;
-                            if (m_map[int(start.x)][int(start.y)].get() != nullptr)
-                                if (m_map[int(start.x)][int(start.y)].get() != nullptr) {
-                                    if (start.x + 1 < BOARD_SIZE) start.x++;
-                                    else start.x--;
-                                    start.y--;
-                                    continue;
-                                }
-                            this->m_map[start.x][start.y] = std::make_unique <Rotatable>(sf::Vector2f
-                            (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E);
-                            start.y--;
                         }else{
                         this->m_map[start.x][start.y] = std::make_unique <Rotatable>(sf::Vector2f
                         (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, T_PIPE_E);
@@ -275,16 +252,6 @@ void Board::buildRoutePoint2Point(sf::Vector2f start,  sf::Vector2f end) {
                     if (start == end) {
                         start.y++;
                         break;
-                        start.x++;
-                        if (m_map[int(start.x)][int(start.y)].get() != nullptr) {
-                            if (start.y + 1 < BOARD_SIZE) start.y++;
-                            else start.y--;
-                            start.x--;
-                            continue;
-                        }
-                        this->m_map[start.x][start.y] = std::make_unique <Rotatable>(sf::Vector2f
-                        (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E);
-                        start.x--;
                     }else{
                     this->m_map[start.x][start.y] = std::make_unique <Rotatable>(sf::Vector2f
                     (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E);
@@ -301,10 +268,6 @@ void Board::buildRoutePoint2Point(sf::Vector2f start,  sf::Vector2f end) {
                     if (start == end) {
                         start.y--;
                         break;
-                        start.x--;
-                        this->m_map[start.x][start.y] = std::make_unique <Rotatable>(sf::Vector2f
-                        (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E);
-                        start.x++;
                     }else{
                     this->m_map[start.x][start.y] = std::make_unique <Rotatable>(sf::Vector2f
                     (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E);
@@ -342,17 +305,16 @@ sf::Vector2f Board::findSinkDirection(Sink* sink, const sf::Vector2f& sinkLoc) {
     sf::Vector2f neighbourLoc = sinkLoc;
     switch (sink->getDirection()) {
     case UP:
-        neighbourLoc.y--;
-        sink->rotate();
-        break;
-    case DOWN:
-        neighbourLoc.y++;
-        break;
-    case LEFT:
         neighbourLoc.x--;
         break;
-    case RIGHT:
+    case DOWN:
         neighbourLoc.x++;
+        break;
+    case LEFT:
+        neighbourLoc.y--;
+        break;
+    case RIGHT:
+        neighbourLoc.y++;
         break;
     }
     return neighbourLoc;
