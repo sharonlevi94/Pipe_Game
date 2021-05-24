@@ -13,7 +13,7 @@ Board::Board(const sf::Vector2f& location,
         :/* m_levelReader(DataReader()),*/
           m_location(location),
         m_size(size) {
-
+        m_solved = false;
 }
 //================================ gets section ==============================
 Square* Board::getContent(const sf::Vector2f& location) {
@@ -56,34 +56,34 @@ void Board::loadNewLevel() {
         this->buildRoutes(); //Bonus +4 pts
 
         //allocating the rest of level's objects:
-        for (int x = 0; x < LEVEL_SIZE; x++) {
-            for (int y = 0; y < LEVEL_SIZE; y++) {
-                if (m_map[x][y].get() == nullptr) {
-                    randVal = (rand() % (16 - 10 + 1) / 2) * 2 + 10;
-                    switch (randVal)
-                    {
-                    case STRAIGHT_PIPE_E:
-                        m_map[x][y] = (std::make_unique <Rotatable>(sf::Vector2f
-                        (boxSize.x * y + 64, boxSize.y * x + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E));
-                        break;
-                    case T_PIPE_E:
-                        m_map[x][y] = (std::make_unique <Rotatable>(sf::Vector2f
-                        (boxSize.x * y + 64, boxSize.y * x + 64) + this->m_location, boxSize, T_PIPE_E));
-                        break;
-                    case PLUS_PIPE_E:
-                        m_map[x][y] = (std::make_unique <Rotatable>(sf::Vector2f
-                        (boxSize.x * y + 64, boxSize.y * x + 64) + this->m_location, boxSize, PLUS_PIPE_E));
-                        break;
-                    case CORNER_PIPE_E:
-                        m_map[x][y] = (std::make_unique <Rotatable>(sf::Vector2f
-                        (boxSize.x * y + 64, boxSize.y * x + 64) + this->m_location, boxSize, CORNER_PIPE_E));
-                        break;
-                    default:
-                        break;
-                    }
-                }
-            }
-        }
+//        for (int x = 0; x < LEVEL_SIZE; x++) {
+//            for (int y = 0; y < LEVEL_SIZE; y++) {
+//                if (m_map[x][y].get() == nullptr) {
+//                    randVal = (rand() % (16 - 10 + 1) / 2) * 2 + 10;
+//                    switch (randVal)
+//                    {
+//                    case STRAIGHT_PIPE_E:
+//                        m_map[x][y] = (std::make_unique <Rotatable>(sf::Vector2f
+//                        (boxSize.x * y + 64, boxSize.y * x + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E));
+//                        break;
+//                    case T_PIPE_E:
+//                        m_map[x][y] = (std::make_unique <Rotatable>(sf::Vector2f
+//                        (boxSize.x * y + 64, boxSize.y * x + 64) + this->m_location, boxSize, T_PIPE_E));
+//                        break;
+//                    case PLUS_PIPE_E:
+//                        m_map[x][y] = (std::make_unique <Rotatable>(sf::Vector2f
+//                        (boxSize.x * y + 64, boxSize.y * x + 64) + this->m_location, boxSize, PLUS_PIPE_E));
+//                        break;
+//                    case CORNER_PIPE_E:
+//                        m_map[x][y] = (std::make_unique <Rotatable>(sf::Vector2f
+//                        (boxSize.x * y + 64, boxSize.y * x + 64) + this->m_location, boxSize, CORNER_PIPE_E));
+//                        break;
+//                    default:
+//                        break;
+//                    }
+//                }
+//            }
+//        }
 
         //this->calcNeighbours(); //Bonus +2 pts   
 }
@@ -137,7 +137,7 @@ void Board::setSinks(const sf::Vector2f& boxSize) {
             randCol = std::rand() % LEVEL_SIZE;
         }
         this->m_map[randRow][randCol] = std::make_unique <Sink>(sf::Vector2f
-        (boxSize.x * randCol + 64, boxSize.y * randRow + 64) + this->m_location, boxSize, SINK_E);
+        (boxSize.x * randCol + 64, boxSize.y * randRow + 64) + this->m_location, boxSize, SINK_E, false);
         //save the place of the sink in the DB:
         m_sinkLoc = (sf::Vector2f(randRow, randCol));
     }
@@ -151,7 +151,7 @@ sf::Vector2f Board::setFaucet(const sf::Vector2f& boxSize) {
             randCol = std::rand() % LEVEL_SIZE;
         }
         this->m_map[randRow][randCol] = std::make_unique <Rotatable>(sf::Vector2f
-        (boxSize.x * randCol + 64, boxSize.y * randRow + 64) + this->m_location, boxSize, FAUCET_F);
+        (boxSize.x * randCol + 64, boxSize.y * randRow + 64) + this->m_location, boxSize, FAUCET_F, true);
 
         return sf::Vector2f(randRow, randCol);
 }
@@ -171,7 +171,7 @@ std::vector<sf::Vector2f> Board::rafflePoints() {
              randRow = std::rand() % LEVEL_SIZE;
              randCol = std::rand() % LEVEL_SIZE;
         }
-        points.push_back(sf::Vector2f(randRow, randCol));
+        points.emplace_back(randRow, randCol);
     }
     return points;
 }
@@ -195,7 +195,7 @@ void Board::buildRoutePoint2Point(sf::Vector2f start,  sf::Vector2f end) {
                             break;
                         }else{
                         this->m_map[start.x][start.y] = std::make_unique <Rotatable>(sf::Vector2f
-                        (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E);
+                        (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E, false);
                         }
                     }
                     else {//end is above to start
@@ -211,7 +211,7 @@ void Board::buildRoutePoint2Point(sf::Vector2f start,  sf::Vector2f end) {
                             break;
                         }else{
                         this->m_map[start.x][start.y] = std::make_unique <Rotatable>(sf::Vector2f
-                        (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E);
+                        (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E,false);
                         }
                     }
                 }
@@ -230,7 +230,7 @@ void Board::buildRoutePoint2Point(sf::Vector2f start,  sf::Vector2f end) {
                             break;
                         }else{
                         this->m_map[start.x][start.y] = std::make_unique <Rotatable>(sf::Vector2f
-                        (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, T_PIPE_E);
+                        (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, T_PIPE_E, false);
                         }
                     }
                     else {
@@ -241,7 +241,7 @@ void Board::buildRoutePoint2Point(sf::Vector2f start,  sf::Vector2f end) {
                             break;
                         }else{
                         this->m_map[start.x][start.y] = std::make_unique <Rotatable>(sf::Vector2f
-                        (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, T_PIPE_E);
+                        (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, T_PIPE_E, false);
                         }
                     }
                 }
@@ -254,7 +254,7 @@ void Board::buildRoutePoint2Point(sf::Vector2f start,  sf::Vector2f end) {
                         break;
                     }else{
                     this->m_map[start.x][start.y] = std::make_unique <Rotatable>(sf::Vector2f
-                    (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E);
+                    (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E, false);
                      }
                 }
                 else {
@@ -270,7 +270,7 @@ void Board::buildRoutePoint2Point(sf::Vector2f start,  sf::Vector2f end) {
                         break;
                     }else{
                     this->m_map[start.x][start.y] = std::make_unique <Rotatable>(sf::Vector2f
-                    (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E);
+                    (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E, false);
                     }
                 }
             }
@@ -283,21 +283,23 @@ void Board::buildRoutePoint2Point(sf::Vector2f start,  sf::Vector2f end) {
 
     if (m_map[int(start.x)][int(start.y)].get() == nullptr) {
         this->m_map[start.x][start.y] = std::make_unique <Rotatable>(sf::Vector2f
-        (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, PLUS_PIPE_E);
+        (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, PLUS_PIPE_E, false);
     }
 }
 //============================================================================
 void Board::buildRoutes() {
         std::vector<sf::Vector2f> routePoints = this->rafflePoints();
-        if (dynamic_cast<Sink*>(m_map[m_sinkLoc.x][m_sinkLoc.y].get())) {
-            sf::Vector2f sinkNeighbour = findSinkDirection((Sink*)m_map[m_sinkLoc.x][m_sinkLoc.y].get(),m_sinkLoc);
-            m_map[sinkNeighbour.x][sinkNeighbour.y] = std::make_unique <Rotatable>(sf::Vector2f
-                    (128 * sinkNeighbour.y + 64, 128 * sinkNeighbour.x + 64) + this->m_location, sf::Vector2f(128, 128), PLUS_PIPE_E);
-            buildRoutePoint2Point(sinkNeighbour, routePoints[0]);
-        }
-        
-            //buildRoutePoint2Point(routePoints[0], routePoints[1]);
-            buildRoutePoint2Point(routePoints[0],m_faucetLoc);
+//        if (dynamic_cast<Sink*>(m_map[m_sinkLoc.x][m_sinkLoc.y].get())) {
+//            sf::Vector2f sinkNeighbour = findSinkDirection((Sink*)m_map[m_sinkLoc.x][m_sinkLoc.y].get(),m_sinkLoc);
+//            m_map[sinkNeighbour.x][sinkNeighbour.y] = std::make_unique <Rotatable>(sf::Vector2f
+//                    (128 * sinkNeighbour.y + 64, 128 * sinkNeighbour.x + 64) + this->m_location, sf::Vector2f(128, 128), PLUS_PIPE_E);
+           // buildRoutePoint2Point(m_sinkLoc, routePoints[0]);
+        //}
+
+        buildRoutePoint2Point(m_sinkLoc,m_faucetLoc);
+        rotateSinkToPath();
+    //buildRoutePoint2Point(routePoints[0], routePoints[1]);
+           // buildRoutePoint2Point(routePoints[0],m_faucetLoc);
 
 }
 //============================================================================
@@ -325,4 +327,116 @@ bool Board::isSink(sf::Vector2f objLocation) {
             return true;
     }
     return false;
+}
+//============================================================================
+void Board::rotateSinkToPath() {
+    //down:
+    if (dynamic_cast<Sink*>(m_map[m_sinkLoc.x][m_sinkLoc.y].get())) {
+
+
+        if (m_map[m_sinkLoc.x + 1][m_sinkLoc.y].get() != nullptr) {
+            m_map[m_sinkLoc.x][m_sinkLoc.y].get()->rotate();
+            m_map[m_sinkLoc.x][m_sinkLoc.y].get()->rotate();
+            m_map[m_sinkLoc.x][m_sinkLoc.y].get()->setDirections(false, true, false, false);
+            dynamic_cast<Sink*>(m_map[m_sinkLoc.x][m_sinkLoc.y].get())->setDir(DOWN);
+        } else if (m_map[m_sinkLoc.x][m_sinkLoc.y - 1].get() != nullptr) { //left
+            m_map[m_sinkLoc.x][m_sinkLoc.y].get()->rotate();
+            m_map[m_sinkLoc.x][m_sinkLoc.y].get()->rotate();
+            m_map[m_sinkLoc.x][m_sinkLoc.y].get()->rotate();
+            dynamic_cast<Sink*>(m_map[m_sinkLoc.x][m_sinkLoc.y].get())->setDir(LEFT);
+        } else if (m_map[m_sinkLoc.x][m_sinkLoc.y + 1].get() != nullptr) { //right
+            m_map[m_sinkLoc.x][m_sinkLoc.y].get()->rotate();
+            dynamic_cast<Sink*>(m_map[m_sinkLoc.x][m_sinkLoc.y].get())->setDir(RIGHT);
+
+        } // else is up- no changes needed.
+    }
+}
+//============================================================================
+void Board::runWater() {
+//    for (int i = 0; i < BOARD_SIZE; ++i) {
+//        for (int j = 0; j < BOARD_SIZE; ++j) {
+//            ///above me
+//            if (m_map[i][j].get()->getDirections().m_up == true){
+//
+//            }
+//            ///below me
+//            if (m_map[i][j].get()->getDirections().m_up == true){
+//
+//            }
+//            ///left to me
+//            if (m_map[i][j].get()->getDirections().m_up == true){
+//
+//            }
+//            /// right to me
+//            if (m_map[i][j].get()->getDirections().m_up == true){
+//
+//            }
+//
+//            m_map[m_faucetLoc.x][m_faucetLoc.y];
+//            int xCoord = m_faucetLoc.x;
+//            int yCoord = m_faucetLoc.y;
+//
+//            if (xCoord > BOARD_SIZE || xCoord < 0) { //end of recursion
+//                return;
+//            }
+//            if (yCoord > BOARD_SIZE || yCoord < 0)
+//                return;
+//            if (m_map[xCoord][yCoord].get()->getRunningWater())
+//                if (m_map[xCoord][yCoord].get()->getDirections().m_up and
+//                    m_map[xCoord][yCoord-1].get()->getDirections().m_down ){
+//                    m_map[xCoord][yCoord-1].get()->setRunningWater(true);
+//                }
+//        }
+//    }
+}
+
+void Board::runEvenMoreWater(int xCoord, int yCoord) {
+    if (xCoord > BOARD_SIZE || xCoord < 0) { //end of recursion
+        return;
+    }
+    if (yCoord > BOARD_SIZE || yCoord < 0)
+        return;
+    if (m_map[xCoord][yCoord].get()->getRunningWater()){
+        if (xCoord - 1 > 0) { ///ABOVE if in board range
+            if (m_map[xCoord][yCoord].get()->getDirections().m_up and
+                m_map[xCoord - 1][yCoord].get()->getDirections().m_down) {
+
+                m_map[xCoord - 1][yCoord].get()->setRunningWater(true);
+                runEvenMoreWater(xCoord - 1, yCoord);
+            }
+        }
+        if (xCoord + 1 < BOARD_SIZE) { ///BELOW if in board range
+            if (m_map[xCoord][yCoord].get()->getDirections().m_up and
+                m_map[xCoord + 1][yCoord].get()->getDirections().m_down) {
+
+                m_map[xCoord + 1][yCoord].get()->setRunningWater(true);
+                runEvenMoreWater(xCoord + 1, yCoord);
+            }
+        }
+        if (yCoord - 1 > 0) { ///LEFT if in board range
+            if (m_map[xCoord][yCoord].get()->getDirections().m_up and
+                m_map[xCoord][yCoord - 1].get()->getDirections().m_down) {
+
+                m_map[xCoord][yCoord - 1].get()->setRunningWater(true);
+                runEvenMoreWater(xCoord, yCoord - 1);
+            }
+        }
+        if (yCoord + 1 < BOARD_SIZE) { ///RIGHT if in board range
+            if (m_map[xCoord][yCoord].get()->getDirections().m_up and
+                m_map[xCoord][yCoord - 1].get()->getDirections().m_down) {
+
+                m_map[xCoord][yCoord - 1].get()->setRunningWater(true);
+                runEvenMoreWater(xCoord, yCoord + 1);
+            }
+        }
+    }
+    for (int i = 0; i < BOARD_SIZE; ++i) {
+        for (int j = 0; j < BOARD_SIZE; ++j) {
+            if (m_map[i][j].get()->getRunningWater()){
+                //LOAD FULL TEXTURE
+            }else {
+                //LOAD EMPTY TEXTURE
+            }
+        }
+    }
 }

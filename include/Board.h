@@ -30,6 +30,7 @@ public:
     void calcNeighbours();
     void loadLevelEffects();
 
+
 private:
     //========================= members section ==============================
     vector<vector<std::unique_ptr<Square>>> m_map;
@@ -47,4 +48,8 @@ private:
     void buildRoutePoint2Point( sf::Vector2f,  sf::Vector2f);
     sf::Vector2f findSinkDirection( Sink*, const sf::Vector2f&);
     bool isSink(sf::Vector2f);
+    void rotateSinkToPath();
+    void runWater();
+    bool m_solved;
+    void runEvenMoreWater(int, int);
 };
