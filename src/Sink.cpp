@@ -3,9 +3,11 @@
 #include "Macros.h"
 
 Sink::Sink(const sf::Vector2f& location,
-	const sf::Vector2f& size, int type, bool water)
-	: Square(location, size, type, water) {
-	this->getShape().setTexture(Resources::instance().getTexture(type));
+	const sf::Vector2f& size, int empty, int full, bool water)
+	: Square(location, size, empty, full, water) {
+    m_shapes.push_back(Resources::instance().getTexture(empty));
+    m_shapes.push_back(Resources::instance().getTexture(full));
+	this->getShape().setTexture(m_shapes[0]); //0 for empty
 	this->getShape().setOrigin(this->getShape().getGlobalBounds().width / 2,
 		this->getShape().getGlobalBounds().height / 2);
 	this->getShape().setPosition(location);

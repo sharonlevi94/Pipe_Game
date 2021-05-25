@@ -3,14 +3,16 @@
 #include "Macros.h"
 
 Square::Square(const sf::Vector2f& location,
-	const sf::Vector2f& size, int type, bool water)
+	const sf::Vector2f& size, int empty, int full, bool water)
 	: m_location(location), m_size(size), m_runningWater(water) {
 	m_neighbours = {};
 	m_shape.setPosition(location);
-	m_shape.setTexture(Resources::instance().getTexture(type));
+	m_shapes.push_back(Resources::instance().getTexture(empty));
+	m_shapes.push_back(Resources::instance().getTexture(full));
+	m_shape.setTexture(m_shapes[0]);
 	this->m_shape.setOrigin(sf::Vector2f{ (m_shape.getTexture()->getSize().x / 2.f),
 		(m_shape.getTexture()->getSize().y / 2.f) });
-	switch (type) {
+	switch (empty) {
         case STRAIGHT_PIPE_E:
             setDirections(true, true, false, false);
             break;
@@ -44,6 +46,12 @@ sf::Sprite& Square::getShape() {
 }
 
 void Square::rotate() {
+    bool temp = false;
+    temp = m_directions.m_up;
+    m_directions.m_up = m_directions.m_left;
+    m_directions.m_left = m_directions.m_down;
+    m_directions.m_down = m_directions.m_right;
+    m_directions.m_right = temp;
 	m_shape.rotate(90.f);
 }
 
@@ -63,10 +71,14 @@ Directions Square::getDirections() {
     return m_directions;
 }
 
-bool Square::getRunningWater() {
+bool Square::getRunningWater() const{
     return m_runningWater;
 }
 
 void Square::setRunningWater(bool isRunning) {
     m_runningWater = isRunning;
+}
+
+void Square::setTexture(const int type) {
+    m_shape.setTexture(m_shapes[type]);
 }
