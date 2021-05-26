@@ -293,7 +293,7 @@ void Board::buildRoutePoint2Point(sf::Vector2f start,  sf::Vector2f end) {
                         break;
                     }else{
                     this->m_map[start.x][start.y] = std::make_unique <Rotatable>(sf::Vector2f
-                    (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, STRAIGHT_PIPE_E, STRAIGHT_PIPE_F, false);
+                    (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, CORNER_PIPE_E, CORNER_PIPE_F, false);
                     }
                 }
             }
@@ -306,7 +306,7 @@ void Board::buildRoutePoint2Point(sf::Vector2f start,  sf::Vector2f end) {
 
     if (m_map[int(start.x)][int(start.y)].get() == nullptr) {
         this->m_map[start.x][start.y] = std::make_unique <Rotatable>(sf::Vector2f
-        (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, PLUS_PIPE_E, PLUS_PIPE_F, false);
+        (boxSize.x * start.y + 64, boxSize.y * start.x + 64) + this->m_location, boxSize, CORNER_PIPE_E, CORNER_PIPE_F, false);
     }
 }
 //============================================================================
