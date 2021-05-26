@@ -69,7 +69,7 @@ void Board::loadNewLevel() {
         for (int x = 0; x < LEVEL_SIZE; x++) {
             for (int y = 0; y < LEVEL_SIZE; y++) {
                 if (m_map[x][y].get() == nullptr) {
-                    randVal = (rand() % (16 - 10 + 1) / 2) * 2 + 10;
+                    randVal = (rand() % (20 - 10 + 1) / 2) * 2 + 10;
                     switch (randVal)
                     {
                     case STRAIGHT_PIPE_E:
@@ -89,6 +89,8 @@ void Board::loadNewLevel() {
                         (boxSize.x * y + 64, boxSize.y * x + 64) + this->m_location, boxSize, CORNER_PIPE_E, CORNER_PIPE_F, false));
                         break;
                     default:
+                        m_map[x][y] = (std::make_unique <Rotatable>(sf::Vector2f
+                                (boxSize.x * y + 64, boxSize.y * x + 64) + this->m_location, boxSize, CORNER_PIPE_E, CORNER_PIPE_F, false));
                         break;
                     }
                 }
@@ -311,7 +313,7 @@ void Board::buildRoutePoint2Point(sf::Vector2f start,  sf::Vector2f end) {
 void Board::buildRoutes() {
     std::vector<sf::Vector2f> routePoints = this->rafflePoints();
     buildRoutePoint2Point(m_sinkLoc,m_faucetLoc);
-    rotateSinkToPath();
+    //rotateSinkToPath();
 
 }
 //============================================================================
@@ -346,18 +348,18 @@ void Board::rotateSinkToPath() {
     if (dynamic_cast<Sink*>(m_map[m_sinkLoc.x][m_sinkLoc.y].get())) {
 
 
-        if (m_map[m_sinkLoc.x + 1][m_sinkLoc.y].get() != nullptr) {
+        if (m_map[m_sinkLoc.x + 1][m_sinkLoc.y].get() == nullptr) {
             m_map[m_sinkLoc.x][m_sinkLoc.y].get()->rotate();
             m_map[m_sinkLoc.x][m_sinkLoc.y].get()->rotate();
             m_map[m_sinkLoc.x][m_sinkLoc.y].get()->setDirections(false, true, false, false);
             dynamic_cast<Sink*>(m_map[m_sinkLoc.x][m_sinkLoc.y].get())->setDir(DOWN);
-        } else if (m_map[m_sinkLoc.x][m_sinkLoc.y - 1].get() != nullptr) { //left
+        } else if (m_map[m_sinkLoc.x][m_sinkLoc.y - 1].get() == nullptr) { //left
             m_map[m_sinkLoc.x][m_sinkLoc.y].get()->rotate();
             m_map[m_sinkLoc.x][m_sinkLoc.y].get()->rotate();
             m_map[m_sinkLoc.x][m_sinkLoc.y].get()->rotate();
             m_map[m_sinkLoc.x][m_sinkLoc.y].get()->setDirections(false, false, true, false);
             dynamic_cast<Sink*>(m_map[m_sinkLoc.x][m_sinkLoc.y].get())->setDir(LEFT);
-        } else if (m_map[m_sinkLoc.x][m_sinkLoc.y + 1].get() != nullptr) { //right
+        } else if (m_map[m_sinkLoc.x][m_sinkLoc.y + 1].get() == nullptr) { //right
             m_map[m_sinkLoc.x][m_sinkLoc.y].get()->rotate();
             m_map[m_sinkLoc.x][m_sinkLoc.y].get()->setDirections(false, false, false, true);
             dynamic_cast<Sink*>(m_map[m_sinkLoc.x][m_sinkLoc.y].get())->setDir(RIGHT);

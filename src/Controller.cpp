@@ -19,7 +19,13 @@ Controller::Controller():
 }
 //============================================================================
 void Controller::run(){
-    m_board.loadNewLevel();
+    try {
+        m_board.loadNewLevel();
+    }
+    catch (...) {
+        m_board.loadNewLevel();
+    }
+   // m_board.loadNewLevel();
     //start clock
     m_gameClock.restart();
     while (m_window.isOpen())
@@ -48,7 +54,15 @@ void Controller::run(){
                     ; // to avoid 22 enums warning in switch
             }
             // next level
-            if (m_board.getWaterInSink())   m_board.loadNewLevel();
+            if (m_board.getWaterInSink()) {
+                try {
+                    m_board.loadNewLevel();
+                    m_clicks = 0;
+                    m_gameClock.restart();
+                } catch (...) {
+                    m_board.loadNewLevel();
+                }
+            }
         }
     }
 }
