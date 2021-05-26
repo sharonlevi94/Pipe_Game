@@ -42,12 +42,13 @@ void Controller::run(){
                         this->m_board.getContent(
                                 sf::Vector2f((float) event.mouseButton.x, (float) event.mouseButton.y))->rotate();
                         m_clicks++;
-
                     }
                 break;
             default:
                     ; // to avoid 22 enums warning in switch
             }
+            // next level
+            if (m_board.getWaterInSink())   m_board.loadNewLevel();
         }
     }
 }

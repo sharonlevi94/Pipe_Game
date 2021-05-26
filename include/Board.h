@@ -29,6 +29,7 @@ public:
     void loadNewLevel();
     void calcNeighbours();
     void loadLevelEffects();
+    bool getWaterInSink() const;
 
 
 private:
