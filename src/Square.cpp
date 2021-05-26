@@ -17,7 +17,7 @@ Square::Square(const sf::Vector2f& location,
             setDirections(true, true, false, false);
             break;
         case T_PIPE_E:
-            setDirections(true, true, true, false);
+            setDirections(true, false, true, true);
             break;
         case PLUS_PIPE_E:
             setDirections(true, true, true, true);

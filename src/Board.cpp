@@ -30,13 +30,20 @@ Square* Board::getContent(const sf::Vector2f& location) {
 }
 //============================ methods section ===============================
 void Board::draw(sf::RenderWindow &window) {
-    this->runEvenMoreWater(this->m_faucetLoc.x, this->m_faucetLoc.y);
+
+    this->runEvenMoreWater(this->m_faucetLoc.x, this->m_faucetLoc.y, 0);
     this->runWater();
     for (int i = 0; i < this->m_map.size(); i++)
         for (int j = 0; j < this->m_map[i].size(); j++)
             if (m_map[i][j].get() != nullptr) {
                 m_map[i][j]->draw(window);
             }
+    for (int i = 0; i < LEVEL_SIZE; ++i) {
+        for (int j = 0; j < LEVEL_SIZE; ++j) {
+            if (sf::Vector2f(i, j) == m_faucetLoc)  continue;
+            m_map[i][j].get()->setRunningWater(false);
+        }
+    }
 }
 //============================================================================
 /* 
@@ -344,9 +351,11 @@ void Board::rotateSinkToPath() {
             m_map[m_sinkLoc.x][m_sinkLoc.y].get()->rotate();
             m_map[m_sinkLoc.x][m_sinkLoc.y].get()->rotate();
             m_map[m_sinkLoc.x][m_sinkLoc.y].get()->rotate();
+            m_map[m_sinkLoc.x][m_sinkLoc.y].get()->setDirections(false, false, true, false);
             dynamic_cast<Sink*>(m_map[m_sinkLoc.x][m_sinkLoc.y].get())->setDir(LEFT);
         } else if (m_map[m_sinkLoc.x][m_sinkLoc.y + 1].get() != nullptr) { //right
             m_map[m_sinkLoc.x][m_sinkLoc.y].get()->rotate();
+            m_map[m_sinkLoc.x][m_sinkLoc.y].get()->setDirections(false, false, false, true);
             dynamic_cast<Sink*>(m_map[m_sinkLoc.x][m_sinkLoc.y].get())->setDir(RIGHT);
 
         } // else is up- no changes needed.
@@ -367,70 +376,96 @@ void Board::runWater() {
     }
 }
 //============================================================================
-void Board::runEvenMoreWater(int xCoord, int yCoord) {
+void Board::runEvenMoreWater(int xCoord, int yCoord, int dir) {
+
 
     if (xCoord < 0) { //end of recursion
-      //  xCoord++;
+        //  xCoord++;
         return;
     }
     if (xCoord >= LEVEL_SIZE) {
-      //  xCoord -= 1;
+        //  xCoord -= 1;
         return;
     }
-    if (yCoord < 0){
-       // yCoord++;
+    if (yCoord < 0) {
+        // yCoord++;
         return;
     }
-    if (yCoord >= LEVEL_SIZE){
-      //  yCoord--;
+    if (yCoord >= LEVEL_SIZE) {
+        //  yCoord--;
         return;
     }
-    if (m_map[xCoord][yCoord].get()->getRunningWater()){
-        if (xCoord - 1 > 0 ) { ///ABOVE if in board range
+    if (m_map[xCoord][yCoord].get()->getRunningWater()) {
+        if (xCoord - 1 >= 0 and dir != UP) { ///ABOVE if in board range
             if (m_map[xCoord][yCoord].get()->getDirections().m_up and
                 m_map[xCoord - 1][yCoord].get()->getDirections().m_down) {
 
                 m_map[xCoord - 1][yCoord].get()->setRunningWater(true);
-                runEvenMoreWater(xCoord - 1, yCoord);
-            }else{
-                m_map[xCoord - 1][yCoord].get()->setRunningWater(false);
-                return;
+                runEvenMoreWater(xCoord - 1, yCoord, DOWN);
             }
         }
-        if (xCoord + 1 < LEVEL_SIZE ) { ///BELOW if in board range
+        if (xCoord + 1 < LEVEL_SIZE and dir != DOWN) { ///BELOW if in board range
             if (m_map[xCoord][yCoord].get()->getDirections().m_down and
                 m_map[xCoord + 1][yCoord].get()->getDirections().m_up) {
 
                 m_map[xCoord + 1][yCoord].get()->setRunningWater(true);
-                runEvenMoreWater(xCoord + 1, yCoord);
-            }else{
-                m_map[xCoord + 1][yCoord].get()->setRunningWater(false);
-                return;
+                runEvenMoreWater(xCoord + 1, yCoord, UP);
             }
         }
-        else if (yCoord - 1 > 0) { ///LEFT if in board range
+        if (yCoord - 1 >= 0 and dir != LEFT) { ///LEFT if in board range
             if (m_map[xCoord][yCoord].get()->getDirections().m_left and
                 m_map[xCoord][yCoord - 1].get()->getDirections().m_right) {
 
                 m_map[xCoord][yCoord - 1].get()->setRunningWater(true);
-                runEvenMoreWater(xCoord, yCoord - 1);
-            }else {
-                m_map[xCoord][yCoord - 1].get()->setRunningWater(false);
-                return;
+                runEvenMoreWater(xCoord, yCoord - 1, RIGHT);
             }
         }
-        else if (yCoord + 1 < LEVEL_SIZE ) { ///RIGHT if in board range
+        if (yCoord + 1 < LEVEL_SIZE and dir != RIGHT) { ///RIGHT if in board range
             if (m_map[xCoord][yCoord].get()->getDirections().m_right and
-                m_map[xCoord][yCoord - 1].get()->getDirections().m_left) {
+                m_map[xCoord][yCoord + 1].get()->getDirections().m_left) {
 
                 m_map[xCoord][yCoord + 1].get()->setRunningWater(true);
-                runEvenMoreWater(xCoord, yCoord + 1);
-            } else{
-                m_map[xCoord][yCoord + 1].get()->setRunningWater(false);
-                return;
+                runEvenMoreWater(xCoord, yCoord + 1, LEFT);
             }
+
         }
+
     }
-//    if (sf::Vector2f(xCoord, yCoord) == m_faucetLoc)
-//        return;
 }
+//else{
+//        if (xCoord - 1 >= 0 and dir != UP) { ///ABOVE if in board range
+//            if (m_map[xCoord][yCoord].get()->getDirections().m_up and
+//                m_map[xCoord - 1][yCoord].get()->getDirections().m_down) {
+//
+//                m_map[xCoord - 1][yCoord].get()->setRunningWater(false);
+//                runEvenMoreWater(xCoord - 1, yCoord, DOWN);
+//            }
+//        }
+//        if (xCoord + 1 < LEVEL_SIZE and dir != DOWN) { ///BELOW if in board range
+//            if (m_map[xCoord][yCoord].get()->getDirections().m_down and
+//                m_map[xCoord + 1][yCoord].get()->getDirections().m_up) {
+//
+//                m_map[xCoord + 1][yCoord].get()->setRunningWater(false);
+//                runEvenMoreWater(xCoord + 1, yCoord, UP);
+//            }
+//        }
+//        if (yCoord - 1 >= 0 and dir != LEFT) { ///LEFT if in board range
+//            if (m_map[xCoord][yCoord].get()->getDirections().m_left and
+//                m_map[xCoord][yCoord - 1].get()->getDirections().m_right) {
+//
+//                m_map[xCoord][yCoord - 1].get()->setRunningWater(false);
+//                runEvenMoreWater(xCoord, yCoord - 1, RIGHT);
+//            }
+//        }
+//        if (yCoord + 1 < LEVEL_SIZE and dir != RIGHT) { ///RIGHT if in board range
+//            if (m_map[xCoord][yCoord].get()->getDirections().m_right and
+//                m_map[xCoord][yCoord + 1].get()->getDirections().m_left) {
+//
+//                m_map[xCoord][yCoord + 1].get()->setRunningWater(false);
+//                runEvenMoreWater(xCoord, yCoord + 1, LEFT);
+//            }
+//
+//        }
+//    }
+//}
+//

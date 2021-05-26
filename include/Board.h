@@ -51,5 +51,5 @@ private:
     void rotateSinkToPath();
     void runWater();
     bool m_solved;
-    void runEvenMoreWater(int, int);
+    void runEvenMoreWater(int, int, int);
 };
